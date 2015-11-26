@@ -21,6 +21,11 @@ namespace EJ02
             this.dbset = context.Set<TEntity>();
         }
 
+        public IQueryable Queryable
+        {
+            get { return this.dbset.AsQueryable(); }
+        }
+
         public TEntity GetByID(object id)
         {
             return (TEntity)this.dbset.Find(id);
