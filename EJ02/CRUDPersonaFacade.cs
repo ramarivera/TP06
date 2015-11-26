@@ -65,9 +65,8 @@ namespace EJ02
         }
 
         public Persona GetById (int pPersona)
-        {
-            Persona pers = new Persona();
-            return pers;
+        { 
+            return this.iUnitOfWork.PersonaRepository.GetByID(pPersona);  
         }
     }
 }
