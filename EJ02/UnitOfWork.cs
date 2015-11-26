@@ -47,12 +47,23 @@ namespace EJ02
 
         protected void Dispose(bool disposing)
         {
-
+            if (disposing)
+            {
+                if (context != null)
+                {
+                    context.Dispose();
+                    context = null;
+                }
+            }
+            this.disposed = true;
         }
 
         public void Dispose()
         {
-
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+
+
     }
 }
