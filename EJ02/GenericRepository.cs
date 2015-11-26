@@ -33,7 +33,7 @@ namespace EJ02
 
         public void Delete(object id)
         {
-            TEntity entityToDelete = (TEntity)dbset.Find(id);
+            TEntity entityToDelete = this.GetByID(id);
             Delete(entityToDelete);
         }
 

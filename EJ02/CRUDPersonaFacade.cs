@@ -10,21 +10,21 @@ namespace EJ02
     {
         private UnitOfWork iUnitOfWork;
 
-        public CRUDPersonaFacade()
-        {
-            this.iUnitOfWork = new UnitOfWork();
-        }
 
         public void Create (Persona pPersona)
         {
-            this.iUnitOfWork.PersonaRepository.Insert(pPersona);
-
-            foreach (Telefono tel in pPersona.Telefonos)
+            using (this.iUnitOfWork = new UnitOfWork())
             {
-                this.iUnitOfWork.TelefonoRepository.Insert(tel);
-            }
+                this.iUnitOfWork.PersonaRepository.Insert(pPersona);
 
-            this.iUnitOfWork.Save();
+                foreach (Telefono tel in pPersona.Telefonos)
+                {
+                    this.iUnitOfWork.TelefonoRepository.Insert(tel);
+                }
+
+                this.iUnitOfWork.Save();
+            }
+           
         }
 
         public void Update (Persona pPersona)

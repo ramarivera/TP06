@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ02
 {
-    class UnitOfWork
+    class UnitOfWork : IDisposable
     {
         private bool disposed = false;
 
