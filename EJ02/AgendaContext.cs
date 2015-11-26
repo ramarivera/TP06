@@ -12,6 +12,7 @@ namespace EJ02
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
 
+       
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Persona>()
