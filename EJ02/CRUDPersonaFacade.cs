@@ -8,7 +8,7 @@ namespace EJ02
 {
     class CRUDPersonaFacade
     {
-        private UnitOfWork iUnitOfWork;
+        public UnitOfWork iUnitOfWork;
 
 
         public void Create(Persona pPersona)

@@ -20,7 +20,7 @@ namespace EJ02
 
         public AgendaContext() : base()
         {
-
+            Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
         }
 
         public DbSet<Persona> Personas { get; set; }
@@ -30,9 +30,11 @@ namespace EJ02
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasDefaultSchema("TDP");
             modelBuilder.Entity<Persona>().ToTable("Persona");
             modelBuilder.Entity<Telefono>().ToTable("Telefono");
+
             modelBuilder.Entity<Persona>()
                         .HasMany(p => p.Telefonos);
         }
