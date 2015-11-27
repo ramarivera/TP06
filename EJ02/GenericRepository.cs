@@ -44,10 +44,32 @@ namespace EJ02
 
         public void Delete(TEntity entityToDelete)
         {
+            /* object buscado = this.dbset.Find(entityToDelete);
+             if (buscado == null)
+             {
+
+             }
+             if (context.Personas.Where(per => per == entityToDelete).SingleOrDefault<Persona>() == null)
+             {
+
+             }
+             dbset.Remove(entityToDelete);*/
             if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 dbset.Attach(entityToDelete);
             }
+
+            Persona temp = entityToDelete as Persona;
+
+            if (temp !=  null)
+            {
+                foreach (var tel in temp.Telefonos)
+                {
+                    Console.WriteLine("Estado: {0}",context.Entry(tel).State.ToString());
+                }
+            }
+            
+             
             dbset.Remove(entityToDelete);
         }
 
