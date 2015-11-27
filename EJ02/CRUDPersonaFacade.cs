@@ -17,10 +17,10 @@ namespace EJ02
             {
                 this.iUnitOfWork.PersonaRepository.Insert(pPersona);
 
-                /*foreach (Telefono tel in pPersona.Telefonos)
+                foreach (Telefono tel in pPersona.Telefonos)
                 {
                     this.iUnitOfWork.TelefonoRepository.Insert(tel);
-                }*/
+                }
 
                 this.iUnitOfWork.Save();
             }
@@ -60,9 +60,16 @@ namespace EJ02
 
         public List<Persona> GetAll()
         {
+            //List<Persona> lListaPersonas;
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                return iUnitOfWork.PersonaRepository.Queryable.OfType<Persona>().ToList<Persona>();
+                /*lListaPersonas = iUnitOfWork.PersonaRepository
+                   .Queryable.OfType<Persona>().ToList<Persona>();
+                List<Telefono> lListaTelefonos = iUnitOfWork.TelefonoRepository
+                    .Queryable.OfType<Telefono>().ToList<Telefono>();*/
+                return iUnitOfWork.PersonaRepository
+                                  .Queryable.OfType<Persona>().ToList<Persona>();
+
             }
         }
 
@@ -71,7 +78,6 @@ namespace EJ02
             using (this.iUnitOfWork = new UnitOfWork())
             {
                 return this.iUnitOfWork.PersonaRepository.GetByID(pPersona);
-
             }
         }
     }

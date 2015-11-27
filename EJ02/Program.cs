@@ -18,10 +18,10 @@ namespace EJ02
                 // Alta
                 Persona mPersona = new Persona
                 {
-                    PersonaId = 1,
+                    //PersonaId = 1,
                     Nombre = "Juan",
                     Apellido = "Sánchez",
-                    Telefonos = new List<Telefono>{ new Telefono{ TelefonoId = 1,
+                    Telefonos = new List<Telefono>{ new Telefono{ //TelefonoId = 1,
                                                                   Numero = "555-123456",
                                                                   Tipo = "Celular"} }
                 };
