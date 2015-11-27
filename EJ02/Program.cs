@@ -10,7 +10,9 @@ namespace EJ02
     {
         static void Main(string[] args)
         {
+            AgendaContext context = new AgendaContext();
             CRUDPersonaFacade fachada = new CRUDPersonaFacade();
+            Console.WriteLine(context.Database.Connection.ConnectionString); 
             using (var db = new AgendaContext())
             {
                 // Alta
@@ -30,6 +32,8 @@ namespace EJ02
                 Console.WriteLine("Holis");
                 Console.ReadKey();
                 // busqueda
+                Console.WriteLine("Resultados");
+
                 foreach (var item in lista)
                 {
                     Console.WriteLine("Persona encontrada Nombre:{0}, Apellido: {1}, IdPersona:{2}",

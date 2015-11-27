@@ -17,10 +17,10 @@ namespace EJ02
             {
                 this.iUnitOfWork.PersonaRepository.Insert(pPersona);
 
-                foreach (Telefono tel in pPersona.Telefonos)
+                /*foreach (Telefono tel in pPersona.Telefonos)
                 {
                     this.iUnitOfWork.TelefonoRepository.Insert(tel);
-                }
+                }*/
 
                 this.iUnitOfWork.Save();
             }
