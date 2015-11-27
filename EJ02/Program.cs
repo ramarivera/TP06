@@ -31,7 +31,7 @@ namespace EJ02
                 Persona pers = fachada.GetById(1);
                 Console.WriteLine(pers.Nombre);
                 Console.ReadKey();
-                /*List<Persona> lista = fachada.GetAll();
+                List<Persona> lista = fachada.GetAll();
                 Console.WriteLine("Holis");
                 Console.ReadKey();
                 // busqueda
@@ -48,7 +48,7 @@ namespace EJ02
                         Console.WriteLine("Numero: {0},Tipo{1}",tel.Numero,tel.Tipo);
                     }
                 }
-                Console.ReadKey();*/
+                Console.ReadKey();
             }
         }
     }

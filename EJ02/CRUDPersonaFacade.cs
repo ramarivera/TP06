@@ -11,7 +11,7 @@ namespace EJ02
         private UnitOfWork iUnitOfWork;
 
 
-        public void Create (Persona pPersona)
+        public void Create(Persona pPersona)
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
@@ -24,10 +24,10 @@ namespace EJ02
 
                 this.iUnitOfWork.Save();
             }
-           
+
         }
 
-        public void Update (Persona pPersona)
+        public void Update(Persona pPersona)
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
@@ -42,7 +42,7 @@ namespace EJ02
             }
         }
 
-        public void Delete (Persona pPersona)
+        public void Delete(Persona pPersona)
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
@@ -60,13 +60,19 @@ namespace EJ02
 
         public List<Persona> GetAll()
         {
-            List<Persona> lista = new List<Persona>();
-            return lista;
+            using (this.iUnitOfWork = new UnitOfWork())
+            {
+                return iUnitOfWork.PersonaRepository.Queryable.OfType<Persona>().ToList<Persona>();
+            }
         }
 
-        public Persona GetById (int pPersona)
-        { 
-            return this.iUnitOfWork.PersonaRepository.GetByID(pPersona);  
+        public Persona GetById(int pPersona)
+        {
+            using (this.iUnitOfWork = new UnitOfWork())
+            {
+                return this.iUnitOfWork.PersonaRepository.GetByID(pPersona);
+
+            }
         }
     }
 }
