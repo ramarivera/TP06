@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace EJ02
 {
-    public class GenericRepository<TEntity> where TEntity:class
+    public class GenericRepository<TEntity> where TEntity : class
     {
         internal DbSet dbset;
         internal AgendaContext context;
@@ -22,41 +22,16 @@ namespace EJ02
             this.dbset.Load();
         }
 
-       /* public IQueryable Queryable
+
+        public IQueryable<TEntity> Queryable
         {
             get
             {
-                IQueryable lAlgo = this.dbset.AsQueryable();
-
-
-                return lAlgo;
-
-
-               // this.context.Entry<TEntity>()
+                return (IQueryable<TEntity>) this.dbset.AsQueryable();
             }
-        }*/
+        }
 
-         public IQueryable<TEntity> Queryable
-        {
-            get
-            {
-                IQueryable<TEntity> lAlgo = (IQueryable <TEntity>) this.dbset.AsQueryable();
-
-
-               /* foreach (TEntity item in lAlgo)
-                {
-                    this.context.Entry(item)
-                }*/
-                
-
-                return lAlgo;
-
-
-               // this.context.Entry<TEntity>()
-            }
-}
-
-public TEntity GetByID(object id)
+        public TEntity GetByID(object id)
         {
             return (TEntity)this.dbset.Find(id);
         }
@@ -91,15 +66,15 @@ public TEntity GetByID(object id)
 
             Persona temp = entityToDelete as Persona;
 
-            if (temp !=  null)
+            if (temp != null)
             {
                 foreach (var tel in temp.Telefonos)
                 {
-                    Console.WriteLine("Estado: {0}",context.Entry(tel).State.ToString());
+                    Console.WriteLine("Estado: {0}", context.Entry(tel).State.ToString());
                 }
             }
-            
-             
+
+
             dbset.Remove(entityToDelete);
         }
 

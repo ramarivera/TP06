@@ -64,32 +64,11 @@ namespace EJ02
             IQueryable<Telefono> lListaTelefonos;
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                // IQueryable<Persona> lCosa =  iUnitOfWork.PersonaRepository.Queryable;//.OfType<Persona>()
-                //lListaPersonas = iUnitOfWork.PersonaRepository.Queryable.OfType<Persona>().ToList<Persona>();
-
                 lListaPersonas = iUnitOfWork.PersonaRepository.Queryable;
                 lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
-
-
-                /*foreach (var item in lListaPersonas)
-                {
-                    item.Telefonos.AddRange(lListaTelefonos.Where(t => t.id))
-                }*/
-
-
-
-                /*foreach (var item in lListaPersonas)
-                {
-                    item.
-                    item.Telefonos.Load();
-                }*/
-                /*List<Telefono> lListaTelefonos = iUnitOfWork.TelefonoRepository
-                    .Queryable.OfType<Telefono>().ToList<Telefono>();
-                 iUnitOfWork.PersonaRepository
-                                  .Queryable.OfType<Persona>().ToList<Persona>();*/
                 return lListaPersonas.ToList<Persona>();
-
             }
+           
         }
 
         public Persona GetById(int pPersona)

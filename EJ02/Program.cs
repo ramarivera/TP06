@@ -27,15 +27,15 @@ namespace EJ02
             mPersona.Telefonos.Add(mTelefono);
 
 
-            using (AgendaContext context = new AgendaContext())
+          /*  using (AgendaContext context = new AgendaContext())
             {
                 context.Personas.Add(mPersona);
                 context.Telefonos.Add(mTelefono);
                 context.SaveChanges();
-            }
+            }*/
 
 
-            //fachada.Create(mPersona);
+            fachada.Create(mPersona);
             Console.WriteLine("Holis");
             Console.ReadKey();
             Persona pers = fachada.GetById(1);
