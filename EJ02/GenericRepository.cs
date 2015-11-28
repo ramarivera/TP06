@@ -27,7 +27,7 @@ namespace EJ02
         {
             get
             {
-                return (IQueryable<TEntity>) this.dbset.AsQueryable();
+                return (IQueryable<TEntity>) this.dbset.AsQueryable().;
             }
         }
 
@@ -80,7 +80,15 @@ namespace EJ02
 
         public void Update(TEntity entityToUpdate)
         {
-            dbset.Attach(entityToUpdate);
+            //dbset.Add(entityToUpdate);
+
+           /*if ( (TEntity temp = this.dbset.Find(entityToUpdate.)) != null) {
+
+            }*/
+
+
+            //dbset.Attach(entityToUpdate);
+            Console.WriteLine(context.Entry(entityToUpdate).State  ); 
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }

@@ -31,12 +31,15 @@ namespace EJ02
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
+
+                foreach (Telefono tel in pPersona.Telefonos)
+                {
+                    Console.WriteLine(this.iUnitOfWork.TelefonoRepository.context.Entry(tel).State); //.Update(tel);
+                }
+
                 this.iUnitOfWork.PersonaRepository.Update(pPersona);
 
-               /* foreach (Telefono tel in pPersona.Telefonos)
-                {
-                    this.iUnitOfWork.TelefonoRepository.Update(tel);
-                }*/
+               
 
                 this.iUnitOfWork.Save();
             }
@@ -64,7 +67,7 @@ namespace EJ02
             IQueryable<Telefono> lListaTelefonos;
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                lListaPersonas = iUnitOfWork.PersonaRepository.Queryable;
+                lListaPersonas = iUnitOfWork.PersonaRepository.Queryable.;
                 lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
                 return lListaPersonas.ToList<Persona>();
             }
@@ -73,8 +76,12 @@ namespace EJ02
 
         public Persona GetById(int pPersona)
         {
+            //IQueryable<Persona> lListaPersonas;
+            IQueryable<Telefono> lListaTelefonos;
             using (this.iUnitOfWork = new UnitOfWork())
             {
+                //lListaPersonas = iUnitOfWork.PersonaRepository.Queryable;
+                lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
                 return this.iUnitOfWork.PersonaRepository.GetByID(pPersona);
             }
         }

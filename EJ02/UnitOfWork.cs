@@ -8,13 +8,19 @@ namespace EJ02
 {
     class UnitOfWork : IDisposable
     {
-        private bool disposed = false;
+        private bool disposed;
 
-        private AgendaContext context = new AgendaContext();
+        private AgendaContext context;
 
         private GenericRepository<Persona> iPersonaRepository;
 
         private GenericRepository<Telefono> iTelefonoRepository;
+
+        public UnitOfWork()
+        {
+            context = new AgendaContext();
+            disposed = false;
+        }
 
         public GenericRepository<Persona> PersonaRepository
         {
@@ -47,12 +53,14 @@ namespace EJ02
 
        protected void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && !disposed)
             {
                 if (context != null)
                 {
                     context.Dispose();
                     context = null;
+                    this.iPersonaRepository = null;
+                    this.iTelefonoRepository = null;
                 }
             }
             this.disposed = true;

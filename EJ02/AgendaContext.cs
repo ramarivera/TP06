@@ -26,6 +26,8 @@ namespace EJ02
         public AgendaContext() : base()
         {
             Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
+            //
+
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,69 +9,113 @@ namespace EJ02
 {
     class Program
     {
-        static void Main(string[] args)
+        static void MostrarTodosTest(CRUDPersonaFacade fachada)
         {
-            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
-            //Console.WriteLine(context.Database.Connection.ConnectionString);
-            // Alta
-            Persona mPersona = new Persona
-            {
-                //PersonaId = 1,
-                Nombre = "Juan",
-                Apellido = "Sánchez",
-                Telefonos = new List<Telefono>() 
-            };
-
-            Telefono mTelefono = new Telefono { Numero = "555-123456", Tipo = "Celular" };
-
-
-            mPersona.Telefonos.Add(mTelefono);
-
-
-          /*  using (AgendaContext context = new AgendaContext())
-            {
-                context.Personas.Add(mPersona);
-                context.Telefonos.Add(mTelefono);
-                context.SaveChanges();
-            }*/
-
-
-            fachada.Create(mPersona);
-            Console.WriteLine("Holis");
-            Console.ReadKey();
-            Persona pers = fachada.GetById(1);
-            Console.WriteLine(pers.Nombre);
-            Console.ReadKey();
-
             List<Persona> lista = fachada.GetAll();
-
-          /*  using (AgendaContext context = new AgendaContext())
-            {
-                lista = context.Set<Persona>().ToList<Persona>();
-            }*/
-
-
-
-
-
-
-            Console.WriteLine("Holis");
+            Console.WriteLine("Get all, Resultados");
             Console.ReadKey();
-            // busqueda
-            Console.WriteLine("Resultados");
+
 
             foreach (var item in lista)
             {
-                Console.WriteLine("Persona encontrada Nombre:{0}, Apellido: {1}, IdPersona:{2}",
+                Console.WriteLine("\tPersona encontrada Nombre:{0}, Apellido: {1}, IdPersona:{2}",
                             item.Nombre,
                             item.Apellido,
                             item.PersonaId.ToString());
                 foreach (var tel in item.Telefonos)
                 {
-                    Console.WriteLine("Numero: {0},Tipo{1}", tel.Numero, tel.Tipo);
+                    Console.WriteLine("\t\tNumero: {0},Tipo{1}", tel.Numero, tel.Tipo);
                 }
             }
             Console.ReadKey();
+
+        }
+
+
+
+        static void AgregarTest()
+        {
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
+
+            Persona mPersona = new Persona
+            {
+                Nombre = "Juan",
+                Apellido = "Sánchez",
+                Telefonos = new List<Telefono>()
+            };
+
+            Telefono mTelefono = new Telefono { Numero = "555-123456", Tipo = "Celular" };
+
+            mPersona.Telefonos.Add(mTelefono);
+
+            fachada.Create(mPersona);
+            Console.WriteLine("Agregada");
+            Console.ReadKey();
+
+            Persona pers = fachada.GetById(1);
+            Console.WriteLine("Get by id Nombre: {0}",pers.Nombre);
+            Console.ReadKey();
+
+            MostrarTodosTest(fachada);
+
+        }
+
+        static void ActualizarTest()
+        {
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
+
+            Persona mPersona /*= new Persona
+            {
+                PersonaId = 2,
+                Nombre = "Martin",
+                Apellido = "Fijo",
+                Telefonos = new List<Telefono>() 
+            }*/;
+
+            mPersona = fachada.GetById(2);
+
+            Telefono mTelefono = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
+            Telefono mTelefono2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
+
+
+            mPersona.Telefonos.Add(mTelefono);
+            mPersona.Telefonos.Add(mTelefono2);
+
+
+
+
+            fachada.Update(mPersona);
+            Console.WriteLine("Actualizada");
+            Console.ReadKey();
+
+            Persona pers = fachada.GetById(2);
+            Console.WriteLine("Get by id Nombre: {0}", pers.Nombre);
+            Console.ReadKey();
+
+            MostrarTodosTest(fachada);
+
+        }
+
+
+        static void Main(string[] args)
+        {
+            Persona mPersona2;
+            using (AgendaContext ctx = new AgendaContext())
+            {
+                mPersona2 = ctx.Set<Persona>().Find(2);
+                mPersona2.Nombre = "Hola";
+            }
+
+            using (AgendaContext ctx = new AgendaContext())
+            {
+                ctx.Entry(mPersona2).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+
+
+            ActualizarTest();
+
+
         }
     }
 }
