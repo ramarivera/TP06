@@ -19,7 +19,7 @@ namespace EJ01
                     Nombre = "Juan",
                     Apellido = "Sánchez",
                     Telefonos = new List<Telefono>{ new Telefono{ TelefonoId = 1,
-                                                                  Numero = "555-123456",
+                                                                  Numero = DateTime.Now.ToString(),
                                                                   Tipo = "Celular"} }
                 };
                 db.Personas.Add(mPersona);
@@ -31,6 +31,10 @@ namespace EJ01
                                 item.Nombre,
                                 item.Apellido,
                                 item.PersonaId.ToString());
+                    /*foreach (var tel in item.Telefonos)
+                    {
+                        Console.WriteLine("Numero: {0},Tipo{1}", tel.Numero, tel.Tipo);
+                    }*/
                 }
                 Console.ReadKey();
             }

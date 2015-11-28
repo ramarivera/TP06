@@ -18,15 +18,18 @@ namespace EJ02
             //Database.SetInitializer<SchoolDBContext>(new SchoolDBInitializer());
         }*/
 
-        public AgendaContext() : base()
-        {
-            Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
-        }
+        
 
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
 
-       
+        public AgendaContext() : base()
+        {
+            Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
+
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -36,7 +39,10 @@ namespace EJ02
             modelBuilder.Entity<Telefono>().ToTable("Telefono");
 
             modelBuilder.Entity<Persona>()
-                        .HasMany(p => p.Telefonos);
+                        .HasMany<Telefono>(p => p.Telefonos)
+                        .WithRequired()
+                        .Map(a => a.MapKey("Persona"))
+                        .WillCascadeOnDelete(true);
         }
     }
 }

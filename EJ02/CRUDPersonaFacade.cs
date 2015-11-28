@@ -17,10 +17,10 @@ namespace EJ02
             {
                 this.iUnitOfWork.PersonaRepository.Insert(pPersona);
 
-                foreach (Telefono tel in pPersona.Telefonos)
+                /*foreach (Telefono tel in pPersona.Telefonos)
                 {
                     this.iUnitOfWork.TelefonoRepository.Insert(tel);
-                }
+                }*/
 
                 this.iUnitOfWork.Save();
             }
@@ -33,10 +33,10 @@ namespace EJ02
             {
                 this.iUnitOfWork.PersonaRepository.Update(pPersona);
 
-                foreach (Telefono tel in pPersona.Telefonos)
+               /* foreach (Telefono tel in pPersona.Telefonos)
                 {
                     this.iUnitOfWork.TelefonoRepository.Update(tel);
-                }
+                }*/
 
                 this.iUnitOfWork.Save();
             }
@@ -47,10 +47,10 @@ namespace EJ02
             using (this.iUnitOfWork = new UnitOfWork())
             {
 
-                foreach (Telefono tel in pPersona.Telefonos)
+               /* foreach (Telefono tel in pPersona.Telefonos)
                 {
                     this.iUnitOfWork.TelefonoRepository.Delete(tel);
-                }
+                }*/
 
                 this.iUnitOfWork.PersonaRepository.Delete(pPersona);
 
@@ -60,15 +60,34 @@ namespace EJ02
 
         public List<Persona> GetAll()
         {
-            //List<Persona> lListaPersonas;
+            IQueryable<Persona> lListaPersonas;
+            IQueryable<Telefono> lListaTelefonos;
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                /*lListaPersonas = iUnitOfWork.PersonaRepository
-                   .Queryable.OfType<Persona>().ToList<Persona>();
-                List<Telefono> lListaTelefonos = iUnitOfWork.TelefonoRepository
-                    .Queryable.OfType<Telefono>().ToList<Telefono>();*/
-                return iUnitOfWork.PersonaRepository
-                                  .Queryable.OfType<Persona>().ToList<Persona>();
+                // IQueryable<Persona> lCosa =  iUnitOfWork.PersonaRepository.Queryable;//.OfType<Persona>()
+                //lListaPersonas = iUnitOfWork.PersonaRepository.Queryable.OfType<Persona>().ToList<Persona>();
+
+                lListaPersonas = iUnitOfWork.PersonaRepository.Queryable;
+                lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
+
+
+                /*foreach (var item in lListaPersonas)
+                {
+                    item.Telefonos.AddRange(lListaTelefonos.Where(t => t.id))
+                }*/
+
+
+
+                /*foreach (var item in lListaPersonas)
+                {
+                    item.
+                    item.Telefonos.Load();
+                }*/
+                /*List<Telefono> lListaTelefonos = iUnitOfWork.TelefonoRepository
+                    .Queryable.OfType<Telefono>().ToList<Telefono>();
+                 iUnitOfWork.PersonaRepository
+                                  .Queryable.OfType<Persona>().ToList<Persona>();*/
+                return lListaPersonas.ToList<Persona>();
 
             }
         }

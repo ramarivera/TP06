@@ -19,14 +19,44 @@ namespace EJ02
         {
             this.context = context;
             this.dbset = context.Set<TEntity>();
+            this.dbset.Load();
         }
 
-        public IQueryable Queryable
+       /* public IQueryable Queryable
         {
-            get { return this.dbset.AsQueryable(); }
-        }
+            get
+            {
+                IQueryable lAlgo = this.dbset.AsQueryable();
 
-        public TEntity GetByID(object id)
+
+                return lAlgo;
+
+
+               // this.context.Entry<TEntity>()
+            }
+        }*/
+
+         public IQueryable<TEntity> Queryable
+        {
+            get
+            {
+                IQueryable<TEntity> lAlgo = (IQueryable <TEntity>) this.dbset.AsQueryable();
+
+
+               /* foreach (TEntity item in lAlgo)
+                {
+                    this.context.Entry(item)
+                }*/
+                
+
+                return lAlgo;
+
+
+               // this.context.Entry<TEntity>()
+            }
+}
+
+public TEntity GetByID(object id)
         {
             return (TEntity)this.dbset.Find(id);
         }
