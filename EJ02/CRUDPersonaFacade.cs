@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace EJ02
 {
@@ -63,13 +64,17 @@ namespace EJ02
 
         public List<Persona> GetAll()
         {
-            IQueryable<Persona> lListaPersonas;
-            IQueryable<Telefono> lListaTelefonos;
+            /*IQueryable<Persona> lListaPersonas;
+            IQueryable<Telefono> lListaTelefonos;*/
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                lListaPersonas = iUnitOfWork.PersonaRepository.Queryable.;
-                lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
-                return lListaPersonas.ToList<Persona>();
+                return iUnitOfWork
+                            .PersonaRepository
+                            .Queryable
+                            .Include("Telefonos")
+                            .ToList<Persona>();
+                //iUnitOfWork.TelefonoRepository.Queryable;
+                //return lListaPersonas.ToList<Persona>();
             }
            
         }
@@ -77,13 +82,19 @@ namespace EJ02
         public Persona GetById(int pPersona)
         {
             //IQueryable<Persona> lListaPersonas;
-            IQueryable<Telefono> lListaTelefonos;
+            //IQueryable lListaTelefonos;
+            Persona lPersona;
             using (this.iUnitOfWork = new UnitOfWork())
             {
                 //lListaPersonas = iUnitOfWork.PersonaRepository.Queryable;
-                lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
-                return this.iUnitOfWork.PersonaRepository.GetByID(pPersona);
+                //lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
+                //this.iUnitOfWork.PersonaRepository.Ge
+                lPersona = this.iUnitOfWork.PersonaRepository.GetByID(pPersona);
+                lPersona.Telefonos = lPersona.Telefonos;
+                //lPersona.Telefonos.ToList<Telefono>();
+                //lPersona.Telefonos.
             }
+            return lPersona;
         }
     }
 }
