@@ -13,21 +13,23 @@ namespace EJ02
     {
         internal DbSet dbset;
         internal AgendaContext context;
-        // public GenericRepository() { }
 
-        public GenericRepository(AgendaContext context)
+
+        public GenericRepository() { }
+
+        /*public GenericRepository(AgendaContext context)
         {
             this.context = context;
             this.dbset = context.Set<TEntity>();
             this.dbset.Load();
-        }
+        }*/
 
 
         public IQueryable<TEntity> Queryable
         {
             get
             {
-                return (IQueryable<TEntity>) this.dbset.AsQueryable().;
+                return (IQueryable <TEntity>) this.dbset.AsQueryable();
             }
         }
 
@@ -88,6 +90,7 @@ namespace EJ02
 
 
             //dbset.Attach(entityToUpdate);
+            //context.Set<TEntity>().
             Console.WriteLine(context.Entry(entityToUpdate).State  ); 
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
