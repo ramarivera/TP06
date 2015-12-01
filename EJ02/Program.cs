@@ -53,7 +53,7 @@ namespace EJ02
             Console.ReadKey();
 
             Persona pers = fachada.GetById(1);
-            Console.WriteLine("Get by id Nombre: {0}",pers.Nombre);
+            Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}",pers.Nombre, pers.Telefonos == null ? "null" : pers.Telefonos.Count.ToString());
             Console.ReadKey();
 
             MostrarTodosTest(fachada);
@@ -99,7 +99,7 @@ namespace EJ02
 
         static void Main(string[] args)
         {
-            Persona mPersona2;
+          /*  Persona mPersona2;
             using (AgendaContext ctx = new AgendaContext())
             {
                 mPersona2 = ctx.Set<Persona>().Find(2);
@@ -111,7 +111,7 @@ namespace EJ02
                 ctx.Entry(mPersona2).State = EntityState.Modified;
                 ctx.SaveChanges();
             }
-
+            */
 
             ActualizarTest();
 
