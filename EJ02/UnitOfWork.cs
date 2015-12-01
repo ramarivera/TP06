@@ -22,13 +22,27 @@ namespace EJ02
             disposed = false;
         }
 
+        /// <summary>
+        /// Finaliza una instancia de la clase <see cref="UnitOfWork"/>.
+        /// </summary>
+        ~UnitOfWork()
+        {
+            // The object went out of scope and finalized is called
+            // Lets call dispose in to release unmanaged resources 
+            // the managed resources will anyways be released when GC 
+            // runs the next time.
+            Dispose(false);
+        }
+
+
         public GenericRepository<Persona> PersonaRepository
         {
             get
             {
                 if (this.iPersonaRepository == null)
                 {
-                    this.iPersonaRepository = new GenericRepository<Persona>(context);
+                    this.iPersonaRepository = new GenericRepository<Persona>()
+                    { context = this.context, dbset = this.context.Set<Persona>() };
                 }
                 return this.iPersonaRepository;
             }
@@ -40,7 +54,8 @@ namespace EJ02
             {
                 if (this.iTelefonoRepository == null)
                 {
-                    this.iTelefonoRepository = new GenericRepository<Telefono>(context);
+                    this.iTelefonoRepository = new GenericRepository<Telefono>()
+                    { context = this.context, dbset = this.context.Set<Telefono>() };
                 }
                 return this.iTelefonoRepository;
             }
@@ -51,24 +66,40 @@ namespace EJ02
             context.SaveChanges();
         }
 
-       protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing && !disposed)
+            if (disposing)
             {
-                if (context != null)
-                {
-                    context.Dispose();
-                    context = null;
-                    this.iPersonaRepository = null;
-                    this.iTelefonoRepository = null;
-                }
+                //someone want the deterministic release of all resources
+                //Let us release all the managed resources
+                this.iPersonaRepository = null;
+                this.iTelefonoRepository = null;
+            }
+            else
+            {
+                // Do nothing, no one asked a dispose, the object went out of
+                // scope and finalized is called so lets next round of GC 
+                // release these resources
+            }
+
+            // Release the unmanaged resource in any case as they will not be 
+            // released by GC
+            if (context != null)
+            {
+                context.Dispose();
+                context = null;
             }
             this.disposed = true;
         }
 
         public void Dispose()
         {
+            // If this function is being called the user wants to release the
+            // resources. lets call the Dispose which will do this for us.
             Dispose(true);
+
+            // Now since we have done the cleanup already there is nothing left
+            // for the Finalizer to do. So lets tell the GC not to call it later.
             GC.SuppressFinalize(this);
         }
 
