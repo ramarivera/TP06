@@ -32,7 +32,10 @@ namespace EJ02
             //this.Configuration.ProxyCreationEnabled = false;
 
         }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
+      
+
+      protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
 

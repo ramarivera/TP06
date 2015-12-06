@@ -41,8 +41,8 @@ namespace EJ02
             {
                 if (this.iPersonaRepository == null)
                 {
-                    this.iPersonaRepository = new GenericRepository<Persona>()
-                    { context = this.context, dbset = this.context.Set<Persona>() };
+                    this.iPersonaRepository = new GenericRepository<Persona>(context);
+                    //{ context = this.context, dbset = this.context.Set<Persona>() };
                 }
                 return this.iPersonaRepository;
             }
@@ -54,8 +54,8 @@ namespace EJ02
             {
                 if (this.iTelefonoRepository == null)
                 {
-                    this.iTelefonoRepository = new GenericRepository<Telefono>()
-                    { context = this.context, dbset = this.context.Set<Telefono>() };
+                    this.iTelefonoRepository = new GenericRepository<Telefono>(context);
+                    //{ context = this.context, dbset = this.context.Set<Telefono>() };
                 }
                 return this.iTelefonoRepository;
             }
@@ -72,6 +72,7 @@ namespace EJ02
             {
                 //someone want the deterministic release of all resources
                 //Let us release all the managed resources
+
                 this.iPersonaRepository = null;
                 this.iTelefonoRepository = null;
             }
