@@ -9,25 +9,22 @@ namespace EJ02
 {
     class Program
     {
+
+        static void MostrarTodos(List<Persona> pLista)
+        {
+            foreach (var item in pLista)
+            {
+                MostrarPersona(item);
+            }
+            Console.ReadKey();
+        }
+
         static void MostrarTodosTest(CRUDPersonaFacade fachada)
         {
             List<Persona> lista = fachada.GetAll();
             Console.WriteLine("Get all, Resultados");
             Console.ReadKey();
-
-
-            foreach (var item in lista)
-            {
-                Console.WriteLine("\tPersona encontrada Nombre:{0}, Apellido: {1}, IdPersona:{2}",
-                            item.Nombre,
-                            item.Apellido,
-                            item.PersonaId.ToString());
-                foreach (var tel in item.Telefonos)
-                {
-                    Console.WriteLine("\t\tNumero: {0},Tipo{1}", tel.Numero, tel.Tipo);
-                }
-            }
-            Console.ReadKey();
+            MostrarTodos(lista);
 
         }
 
@@ -39,24 +36,65 @@ namespace EJ02
 
             Persona mPersona = new Persona
             {
-                Nombre = "Juan",
+                Nombre = DateTime.Now.ToString(),
                 Apellido = "Sánchez",
                 Telefonos = new List<Telefono>()
             };
 
-            Telefono mTelefono = new Telefono { Numero = "555-123456", Tipo = "Celular" };
+            Telefono mTelefono1 = new Telefono { Numero = DateTime.Now.Ticks.ToString(), Tipo = "Celular" };
+            Telefono mTelefono2 = new Telefono { Numero = DateTime.Now.Second.ToString(), Tipo = "Celular" };
 
-            mPersona.Telefonos.Add(mTelefono);
+            mPersona.Telefonos.Add(mTelefono1);
+            mPersona.Telefonos.Add(mTelefono2);
 
             fachada.Create(mPersona);
+
             Console.WriteLine("Agregada");
             Console.ReadKey();
 
             Persona pers = fachada.GetById(1);
-            Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}",pers.Nombre, pers.Telefonos == null ? "null" : pers.Telefonos.Count.ToString());
+            try
+            {
+                Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, pers.Telefonos == null ? "null" : pers.Telefonos.Count.ToString());
+            }
+            catch (System.ObjectDisposedException)
+            {
+                Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, "Context Disposed");
+            }
+            
             Console.ReadKey();
 
             MostrarTodosTest(fachada);
+
+        }
+
+        static void MostrarPersona(Persona pPersona)
+        {
+            Console.WriteLine("\tPersona encontrada Nombre:{0}, Apellido: {1}, IdPersona:{2}",
+                           pPersona.Nombre,
+                           pPersona.Apellido,
+                           pPersona.PersonaId.ToString());
+            try
+            {
+                if (pPersona.Telefonos != null)
+                {
+                    foreach (var tel in pPersona.Telefonos)
+                    {
+                        Console.WriteLine("\t\tNumero: {0},Tipo{1}", tel.Numero, tel.Tipo);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\tSin Telefonos");
+                }
+            }
+            catch (System.ObjectDisposedException)
+            {
+                Console.WriteLine("\tContext Disposed");
+            }
+            
+
+
 
         }
 
@@ -72,7 +110,9 @@ namespace EJ02
                 Telefonos = new List<Telefono>() 
             }*/;
 
-            mPersona = fachada.GetById(2);
+            mPersona = fachada.GetAll()[5];
+
+            mPersona.Nombre = mPersona.Nombre + DateTime.Today.ToString();
 
             Telefono mTelefono = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
             Telefono mTelefono2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
@@ -96,26 +136,48 @@ namespace EJ02
 
         }
 
+        static void LeerSinRepo()
+        {
+           Persona mPersona2;
+            List<Persona> pLista = new List<Persona>();
+           using (AgendaContext ctx = new AgendaContext())
+           {
+                DbSet<Persona> dbset = ctx.Set<Persona>();
+
+               mPersona2 = dbset.Find(1);
+                pLista = dbset.Include(p => p.Telefonos).ToList<Persona>();
+               MostrarPersona(mPersona2);
+
+                // mPersona2.Nombre = "Hola";
+            }
+            MostrarTodos(pLista);
+
+            Console.ReadKey();
+          
+           
+        }
+
+        /* Persona mPersona2;
+           using (AgendaContext ctx = new AgendaContext())
+           {
+               mPersona2 = ctx.Set<Persona>().Find(2);
+              // mPersona2.Nombre = "Hola";
+           }
+
+           using (AgendaContext ctx = new AgendaContext())
+           {
+               ctx.Entry(mPersona2).State = EntityState.Modified;
+               ctx.SaveChanges();
+           }*/
 
         static void Main(string[] args)
         {
-          /*  Persona mPersona2;
-            using (AgendaContext ctx = new AgendaContext())
-            {
-                mPersona2 = ctx.Set<Persona>().Find(2);
-                mPersona2.Nombre = "Hola";
-            }
+          //  LeerSinRepo();
 
-            using (AgendaContext ctx = new AgendaContext())
-            {
-                ctx.Entry(mPersona2).State = EntityState.Modified;
-                ctx.SaveChanges();
-            }
-            */
-
-            ActualizarTest();
+            AgregarTest();
 
 
         }
     }
 }
+ 

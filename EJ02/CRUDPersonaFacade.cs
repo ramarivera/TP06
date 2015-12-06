@@ -9,92 +9,60 @@ namespace EJ02
 {
     class CRUDPersonaFacade
     {
-        public UnitOfWork iUnitOfWork;
+        //public UnitOfWork iUnitOfWork;
 
 
         public void Create(Persona pPersona)
         {
-            using (this.iUnitOfWork = new UnitOfWork())
+            using (UnitOfWork uow = new UnitOfWork())
             {
-                this.iUnitOfWork.PersonaRepository.Insert(pPersona);
-
-                /*foreach (Telefono tel in pPersona.Telefonos)
+                uow.PersonaRepository.Insert(pPersona);
+                /*foreach (var item in pPersona.Telefonos)
                 {
-                    this.iUnitOfWork.TelefonoRepository.Insert(tel);
+                    uow.TelefonoRepository.Insert(item);
                 }*/
-
-                this.iUnitOfWork.Save();
+                uow.Save();
             }
-
+          
         }
 
         public void Update(Persona pPersona)
         {
-            using (this.iUnitOfWork = new UnitOfWork())
+            using (UnitOfWork uow = new UnitOfWork())
             {
 
-                foreach (Telefono tel in pPersona.Telefonos)
-                {
-                    Console.WriteLine(this.iUnitOfWork.TelefonoRepository.context.Entry(tel).State); //.Update(tel);
-                }
-
-                this.iUnitOfWork.PersonaRepository.Update(pPersona);
-
-               
-
-                this.iUnitOfWork.Save();
+                uow.Save();
             }
         }
 
         public void Delete(Persona pPersona)
         {
-            using (this.iUnitOfWork = new UnitOfWork())
+            using (UnitOfWork uow = new UnitOfWork())
             {
 
-               /* foreach (Telefono tel in pPersona.Telefonos)
-                {
-                    this.iUnitOfWork.TelefonoRepository.Delete(tel);
-                }*/
-
-                this.iUnitOfWork.PersonaRepository.Delete(pPersona);
-
-                this.iUnitOfWork.Save();
+                uow.Save();
             }
         }
 
         public List<Persona> GetAll()
         {
-            /*IQueryable<Persona> lListaPersonas;
-            IQueryable<Telefono> lListaTelefonos;*/
-            using (this.iUnitOfWork = new UnitOfWork())
+            List<Persona> lResultado = new List<Persona>();
+            using (UnitOfWork uow = new UnitOfWork())
             {
-                return iUnitOfWork
-                            .PersonaRepository
-                            .Queryable
-                            .Include("Telefonos")
-                            .ToList<Persona>();
-                //iUnitOfWork.TelefonoRepository.Queryable;
-                //return lListaPersonas.ToList<Persona>();
+                var query = uow.PersonaRepository.Queryable.Include(p => p.Telefonos).Select(p => p);
+                // var query = (new AgendaContext()).Set<Persona>().Include(p => p.Telefonos);
+                query.Load();
+                lResultado = query.ToList<Persona>();
             }
-           
+            return lResultado;
         }
 
         public Persona GetById(int pPersona)
         {
-            //IQueryable<Persona> lListaPersonas;
-            //IQueryable lListaTelefonos;
-            Persona lPersona;
-            using (this.iUnitOfWork = new UnitOfWork())
+            using (UnitOfWork uow = new UnitOfWork())
             {
-                //lListaPersonas = iUnitOfWork.PersonaRepository.Queryable;
-                //lListaTelefonos = iUnitOfWork.TelefonoRepository.Queryable;
-                //this.iUnitOfWork.PersonaRepository.Ge
-                lPersona = this.iUnitOfWork.PersonaRepository.GetByID(pPersona);
-                lPersona.Telefonos = lPersona.Telefonos;
-                //lPersona.Telefonos.ToList<Telefono>();
-                //lPersona.Telefonos.
+                return uow.PersonaRepository.GetByID(pPersona);
             }
-            return lPersona;
         }
     }
 }

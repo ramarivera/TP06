@@ -11,6 +11,6 @@ namespace EJ02
         public int PersonaId { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public virtual List<Telefono> Telefonos { get; set; }
+        public virtual ICollection<Telefono> Telefonos { get; set; }
     }
 }
