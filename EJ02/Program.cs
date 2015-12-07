@@ -51,7 +51,7 @@ namespace EJ02
 
             Console.WriteLine("Agregada");
             Console.ReadKey();
-
+/*
             Persona pers = fachada.GetById(1);
             try
             {
@@ -64,7 +64,7 @@ namespace EJ02
             
             Console.ReadKey();
 
-            MostrarTodosTest(fachada);
+           MostrarTodosTest(fachada);*/
 
         }
 
@@ -111,20 +111,23 @@ namespace EJ02
             }*/;
 
             mPersona = fachada.GetAll()[5];
+            string temp = DateTime.Today.ToString();
+            mPersona.Nombre = mPersona.Nombre + temp;
 
-            mPersona.Nombre = mPersona.Nombre + DateTime.Today.ToString();
+            Console.WriteLine("Nombre viejo: {0}\t Nombre Nuevo: {1}", mPersona.Nombre, mPersona.Nombre + temp);
+            Console.ReadKey();
 
-            Telefono mTelefono = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
-            Telefono mTelefono2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
+            Telefono mTelefonoNuevo1 = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
+            Telefono mTelefonoNuevo2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
+            mPersona.Telefonos.Add(mTelefonoNuevo1);
+            mPersona.Telefonos.Add(mTelefonoNuevo2);
 
+            mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
 
-            mPersona.Telefonos.Add(mTelefono);
-            mPersona.Telefonos.Add(mTelefono2);
-
-
-
+            //mPersona.Telefonos.RemoveAt(1);
 
             fachada.Update(mPersona);
+
             Console.WriteLine("Actualizada");
             Console.ReadKey();
 
@@ -172,9 +175,14 @@ namespace EJ02
 
         static void Main(string[] args)
         {
-          //  LeerSinRepo();
+            //  LeerSinRepo();
 
-            AgregarTest();
+            for (int i = 0; i < 10; i++)
+            {
+                AgregarTest();
+            }
+            
+            ActualizarTest();
 
 
         }

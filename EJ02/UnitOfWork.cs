@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ02
 {
-    class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable
     {
         private bool disposed;
 
@@ -35,7 +35,7 @@ namespace EJ02
         }
 
 
-        public GenericRepository<Persona> PersonaRepository
+        public virtual GenericRepository<Persona> PersonaRepository
         {
             get
             {
@@ -48,7 +48,7 @@ namespace EJ02
             }
         }
 
-        public GenericRepository<Telefono> TelefonoRepository
+        public virtual GenericRepository<Telefono> TelefonoRepository
         {
             get
             {
@@ -61,7 +61,7 @@ namespace EJ02
             }
         }
 
-        public void Save()
+        public virtual void Save()
         {
             context.SaveChanges();
         }
@@ -93,7 +93,7 @@ namespace EJ02
             this.disposed = true;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             // If this function is being called the user wants to release the
             // resources. lets call the Dispose which will do this for us.
