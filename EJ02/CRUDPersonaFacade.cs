@@ -7,62 +7,103 @@ using System.Data.Entity;
 
 namespace EJ02
 {
-    class CRUDPersonaFacade
+    public class CRUDPersonaFacade
     {
-        //public UnitOfWork iUnitOfWork;
+        public UnitOfWork iUnitOfWork;
 
-
-        public void Create(Persona pPersona)
+        public virtual void Create(Persona pPersona)
         {
-            using (UnitOfWork uow = new UnitOfWork())
+            using (iUnitOfWork = new UnitOfWork())
             {
-                uow.PersonaRepository.Insert(pPersona);
+                this.iUnitOfWork.PersonaRepository.Insert(pPersona);
                 /*foreach (var item in pPersona.Telefonos)
                 {
-                    uow.TelefonoRepository.Insert(item);
+                    this.iUnitOfWork.TelefonoRepository.Insert(item);
                 }*/
-                uow.Save();
+                this.iUnitOfWork.Save();
             }
           
         }
 
-        public void Update(Persona pPersona)
+        public virtual void Update(Persona pPersona)
         {
-            using (UnitOfWork uow = new UnitOfWork())
+            using (iUnitOfWork = new UnitOfWork())
             {
+                Persona lTemp = this.iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);
 
-                uow.Save();
+                if (lTemp != null)
+                {
+                   // Entry<TEntity>(original).CurrentValues.SetValues(current)
+
+
+                    foreach (var telefono in pPersona.Telefonos)                    // Recorro los telefonos de pPersona para Actualizar / Agregar
+                    {
+                        // if (lTemp.Telefonos.FirstOrDefault(t => t.TelefonoId == telefono.TelefonoId) == null)
+                        if (telefono.TelefonoId == 0)
+                        {
+                            // Agregar
+                            this.iUnitOfWork.TelefonoRepository.Insert(telefono);
+                        }
+                        else
+                        {
+                            // Actualizar
+                            this.iUnitOfWork.TelefonoRepository.Update(telefono);
+                        }
+                    }
+/*
+                    foreach (var telefono in lTemp.Telefonos)                       // Recorro los telefonos de lTemp par eliminar los que no esten en pPersona
+                    {
+                        if (pPersona.Telefonos.FirstOrDefault(t => t.TelefonoId == telefono.TelefonoId) == null)
+                        {
+                            this.iUnitOfWork.TelefonoRepository.Delete(telefono);
+                        }
+                    }
+                    */
+                }
+                else
+                {
+                    // Si lTemp es nulo singifica  que la persona no esta cargada y por lo tanto hubo un error
+                }
+
+                this.iUnitOfWork.PersonaRepository.Update(pPersona);
+                this.iUnitOfWork.Save();
             }
         }
 
-        public void Delete(Persona pPersona)
+        public virtual void Delete(Persona pPersona)
         {
-            using (UnitOfWork uow = new UnitOfWork())
+            using (this.iUnitOfWork = new UnitOfWork())
             {
-
-                uow.Save();
+                this.iUnitOfWork.PersonaRepository.Delete(pPersona);
+                this.iUnitOfWork.Save();
             }
         }
 
-        public List<Persona> GetAll()
+        public virtual List<Persona> GetAll()
         {
             List<Persona> lResultado = new List<Persona>();
-            using (UnitOfWork uow = new UnitOfWork())
+            using (iUnitOfWork = new UnitOfWork())
             {
-                var query = uow.PersonaRepository.Queryable.Include(p => p.Telefonos).Select(p => p);
+                var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos);//.Select(p => p);
                 // var query = (new AgendaContext()).Set<Persona>().Include(p => p.Telefonos);
-                query.Load();
+                //query.Load();
                 lResultado = query.ToList<Persona>();
             }
             return lResultado;
         }
 
-        public Persona GetById(int pPersona)
+        public virtual Persona GetById(int pPersona)
         {
-            using (UnitOfWork uow = new UnitOfWork())
+            Persona lResultado;
+            using (iUnitOfWork = new UnitOfWork())
             {
-                return uow.PersonaRepository.GetByID(pPersona);
+                var query = (from persona in this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)
+                             where persona.PersonaId == pPersona
+                             select persona);
+
+                lResultado = query.FirstOrDefault<Persona>();
             }
+            return lResultado;
         }
     }
 }

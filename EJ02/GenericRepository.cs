@@ -27,7 +27,7 @@ namespace EJ02
         }
 
 
-        public IQueryable<TEntity> Queryable
+        public virtual IQueryable<TEntity> Queryable
         {
             get
             {
@@ -35,30 +35,34 @@ namespace EJ02
             }
         }
 
-        public TEntity GetByID(object id)
+        public virtual TEntity GetByID(object id)
         {
             return (TEntity) this.dbset.Find(id);
         }
 
-        public void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
             dbset.Add(entity);
         }
 
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
             TEntity entityToDelete = this.GetByID(id);
             Delete(entityToDelete);
         }
 
-        public void Delete(TEntity entityToDelete)
+        public virtual void Delete(TEntity entityToDelete)
         {
-            
+            if (context.Entry<TEntity>(entityToDelete).State == EntityState.Detached)
+            {
+                dbset.Attach(entityToDelete);
+            }
+            dbset.Remove(entityToDelete);
         }
 
-        public void Update(TEntity entityToUpdate)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.Entry<TEntity>(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
