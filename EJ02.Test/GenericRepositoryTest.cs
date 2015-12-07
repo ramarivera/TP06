@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using Moq;
 using EJ02;
 using System.Data.Entity;
@@ -15,15 +16,11 @@ namespace EJ02.Test
         public void GetByID()
         {
             // Arrange 
-            //var mockSetNonGeneric = new Mock<DbSet>();
             var mockSet = new Mock<DbSet<Persona>>();
             var mockContext = new Mock<AgendaContext>();
             var mockRepository = new Mock<GenericRepository<Persona>>(mockContext.Object);
 
-            mockContext.Setup(m => m.Personas).Returns(mockSet.Object);
             mockContext.Setup(m => m.Set<Persona>()).Returns(mockSet.Object);
-            
-            //mockContext.Setup(c => c.Set(typeof(Persona))).Returns(mockSetNonGeneric.Object);
 
             var repositorio = mockRepository.Object;
 
@@ -31,11 +28,40 @@ namespace EJ02.Test
             repositorio.GetByID(1);
 
             // Assert
-            mockContext.Verify(ctx => ctx.dbset, Times.Exactly(1));
+            
             mockSet.Verify(set => set.Find(It.IsAny<Object>()), Times.Once);
+        }
 
-            //mockSet.Verify(m => m.Add(It.IsAny<Blog>()), Times.Once());
-           // mockContext.Verify(m => m.SaveChanges(), Times.Once());
+
+        [TestMethod]
+        public void Insert()
+        {
+            // Arrange 
+            var mockSet = new Mock<DbSet<Persona>>();
+            var mockContext = new Mock<AgendaContext>();
+            var mockRepository = new Mock<GenericRepository<Persona>>(mockContext.Object);
+
+            mockContext.Setup(m => m.Set<Persona>()).Returns(mockSet.Object);
+
+            var repositorio = mockRepository.Object;
+
+            Persona lPersona = new Persona()
+            {
+                Nombre = "Ramiro",
+                Apellido = "Rivera",
+                PersonaId = 5,
+                Telefonos = new List<Telefono>()
+                    {
+                        new Telefono() {TelefonoId = 2, Tipo = "Celular", Numero="03447-15409832" }
+                    }
+            };
+
+            // Act
+            repositorio.Insert(lPersona);
+
+            // Assert
+
+            mockSet.Verify(set => set.Add(It.Is<Persona>(per => per == lPersona)), Times.Once);
         }
     }
 }
