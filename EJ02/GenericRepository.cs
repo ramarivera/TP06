@@ -37,7 +37,7 @@ namespace EJ02
 
         public TEntity GetByID(object id)
         {
-            return (TEntity)this.dbset.Find(id);
+            return (TEntity) this.dbset.Find(id);
         }
 
         public void Insert(TEntity entity)
