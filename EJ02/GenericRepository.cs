@@ -11,7 +11,7 @@ namespace EJ02
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
-        internal DbSet dbset;
+        internal DbSet<TEntity> dbset;
         internal AgendaContext context;
 
 
@@ -20,6 +20,8 @@ namespace EJ02
         public GenericRepository(AgendaContext context)
         {
             this.context = context;
+            //DbSet<TEntity> set = context.Set<TEntity>();
+            //this.dbset = context.Set(typeof(TEntity));
             this.dbset = context.Set<TEntity>();
             //this.dbset.Load();
         }

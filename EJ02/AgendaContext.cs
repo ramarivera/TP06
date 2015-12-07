@@ -20,8 +20,8 @@ namespace EJ02
 
         
 
-        public DbSet<Persona> Personas { get; set; }
-        public DbSet<Telefono> Telefonos { get; set; }
+        public virtual DbSet<Persona> Personas { get; set; }
+        public virtual DbSet<Telefono> Telefonos { get; set; }
 
         public AgendaContext() : base()
         {
