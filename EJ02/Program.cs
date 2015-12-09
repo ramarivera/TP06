@@ -131,7 +131,7 @@ namespace EJ02
             Console.WriteLine("Actualizada");
             Console.ReadKey();
 
-            Persona pers = fachada.GetById(2);
+            Persona pers = fachada.GetAll()[5];
             Console.WriteLine("Get by id Nombre: {0}", pers.Nombre);
             Console.ReadKey();
 
@@ -254,12 +254,12 @@ namespace EJ02
                    AgregarTest();
                }
                */
-            //ActualizarTest();
+            ActualizarTest();
 
             /*  AgregarTest();
               Console.ReadKey();*/
 
-            AgregarActualizarPersonaSola();
+            //AgregarActualizarPersonaSola();
 
            // UpdateSinRepo();
 

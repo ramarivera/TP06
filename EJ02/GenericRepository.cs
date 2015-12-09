@@ -62,10 +62,7 @@ namespace EJ02
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            /*if (context.Entry<TEntity>(entityToUpdate).State == EntityState.Detached)
-            {
-                dbset.Attach(entityToUpdate);
-            }*/
+            this.dbset.Attach(entityToUpdate);
             context.Entry<TEntity>(entityToUpdate).State = EntityState.Modified;
         }
     }
