@@ -26,7 +26,9 @@ namespace EJ02
 
         public AgendaContext() : base()
         {
-            Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
+            //Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AgendaContext, Migrations.Configuration>());
+            //Console.WriteLine(this.Database.Connection.ConnectionString);
             //
 
             //this.Configuration.LazyLoadingEnabled = false;
@@ -34,13 +36,13 @@ namespace EJ02
 
         }
 
-      
 
-      protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //
 
-            modelBuilder.HasDefaultSchema("TDP");
+         /*   modelBuilder.HasDefaultSchema("TDP");
             modelBuilder.Entity<Persona>().ToTable("Persona");
             modelBuilder.Entity<Telefono>().ToTable("Telefono");
 
@@ -64,7 +66,7 @@ namespace EJ02
                         .Property(t => t.TelefonoId)
                         .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);*/
         }
     }
 }

@@ -59,6 +59,19 @@
     <Compile Include="AgendaContext.cs" />
     <Compile Include="CRUDPersonaFacade.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="Migrations\201512091237151_Initial.cs" />
+    <Compile Include="Migrations\201512091237151_Initial.Designer.cs">
+      <DependentUpon>201512091237151_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512091238501_Migracion 01.cs" />
+    <Compile Include="Migrations\201512091238501_Migracion 01.Designer.cs">
+      <DependentUpon>201512091238501_Migracion 01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512091404217_Migracion 02.cs" />
+    <Compile Include="Migrations\201512091404217_Migracion 02.Designer.cs">
+      <DependentUpon>201512091404217_Migracion 02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +81,17 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512091237151_Initial.resx">
+      <DependentUpon>201512091237151_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512091238501_Migracion 01.resx">
+      <DependentUpon>201512091238501_Migracion 01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512091404217_Migracion 02.resx">
+      <DependentUpon>201512091404217_Migracion 02.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
