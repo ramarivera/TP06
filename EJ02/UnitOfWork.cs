@@ -68,29 +68,32 @@ namespace EJ02
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!disposed)
             {
-                //someone want the deterministic release of all resources
-                //Let us release all the managed resources
+                if (disposing)
+                {
+                    //someone want the deterministic release of all resources
+                    //Let us release all the managed resources
 
-                this.iPersonaRepository = null;
-                this.iTelefonoRepository = null;
-            }
-            else
-            {
-                // Do nothing, no one asked a dispose, the object went out of
-                // scope and finalized is called so lets next round of GC 
-                // release these resources
-            }
+                    this.iPersonaRepository = null;
+                    this.iTelefonoRepository = null;
+                }
+                else
+                {
+                    // Do nothing, no one asked a dispose, the object went out of
+                    // scope and finalized is called so lets next round of GC 
+                    // release these resources
+                }
 
-            // Release the unmanaged resource in any case as they will not be 
-            // released by GC
-            if (context != null)
-            {
-                context.Dispose();
-                context = null;
+                // Release the unmanaged resource in any case as they will not be 
+                // released by GC
+                if (context != null)
+                {
+                    context.Dispose();
+                    context = null;
+                }
+                this.disposed = true;
             }
-            this.disposed = true;
         }
 
         public virtual void Dispose()

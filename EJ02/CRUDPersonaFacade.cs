@@ -22,18 +22,18 @@ namespace EJ02
                 }*/
                 this.iUnitOfWork.Save();
             }
-          
+
         }
 
         public virtual void Update(Persona pPersona)
         {
             using (iUnitOfWork = new UnitOfWork())
             {
-                Persona lTemp = this.iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);
+                Persona lPersonaOriginal = this.iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);
 
-                if (lTemp != null)
+                if (lPersonaOriginal != null)
                 {
-                   // Entry<TEntity>(original).CurrentValues.SetValues(current)
+                    // Entry<TEntity>(original).CurrentValues.SetValues(current)
 
 
                     foreach (var telefono in pPersona.Telefonos)                    // Recorro los telefonos de pPersona para Actualizar / Agregar
@@ -50,7 +50,7 @@ namespace EJ02
                             this.iUnitOfWork.TelefonoRepository.Update(telefono);
                         }
                     }
-/*
+                    /*
                     foreach (var telefono in lTemp.Telefonos)                       // Recorro los telefonos de lTemp par eliminar los que no esten en pPersona
                     {
                         if (pPersona.Telefonos.FirstOrDefault(t => t.TelefonoId == telefono.TelefonoId) == null)
@@ -59,14 +59,19 @@ namespace EJ02
                         }
                     }
                     */
+
+                    /*this.iUnitOfWork.PersonaRepository.context.Entry<Persona>(lPersonaOriginal).CurrentValues.SetValues(pPersona);
+                    this.iUnitOfWork.PersonaRepository.Update(lPersonaOriginal);*/
+
+                    this.iUnitOfWork.PersonaRepository.Update(pPersona);
+                    this.iUnitOfWork.Save();
                 }
                 else
                 {
                     // Si lTemp es nulo singifica  que la persona no esta cargada y por lo tanto hubo un error
                 }
 
-                this.iUnitOfWork.PersonaRepository.Update(pPersona);
-                this.iUnitOfWork.Save();
+
             }
         }
 
@@ -74,7 +79,7 @@ namespace EJ02
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                this.iUnitOfWork.PersonaRepository.Delete(pPersona);
+                this.iUnitOfWork.PersonaRepository.Delete(pPersona.PersonaId);
                 this.iUnitOfWork.Save();
             }
         }
@@ -84,7 +89,7 @@ namespace EJ02
             List<Persona> lResultado = new List<Persona>();
             using (iUnitOfWork = new UnitOfWork())
             {
-                var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos);//.Select(p => p);
+                var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos).AsNoTracking();//.Select(p => p);
                 // var query = (new AgendaContext()).Set<Persona>().Include(p => p.Telefonos);
                 //query.Load();
                 lResultado = query.ToList<Persona>();
@@ -97,7 +102,7 @@ namespace EJ02
             Persona lResultado;
             using (iUnitOfWork = new UnitOfWork())
             {
-                var query = (from persona in this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)
+                var query = (from persona in this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos).AsNoTracking()
                              where persona.PersonaId == pPersona
                              select persona);
 

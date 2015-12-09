@@ -51,20 +51,20 @@ namespace EJ02
 
             Console.WriteLine("Agregada");
             Console.ReadKey();
-/*
-            Persona pers = fachada.GetById(1);
-            try
-            {
-                Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, pers.Telefonos == null ? "null" : pers.Telefonos.Count.ToString());
-            }
-            catch (System.ObjectDisposedException)
-            {
-                Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, "Context Disposed");
-            }
-            
-            Console.ReadKey();
+            /*
+                        Persona pers = fachada.GetById(1);
+                        try
+                        {
+                            Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, pers.Telefonos == null ? "null" : pers.Telefonos.Count.ToString());
+                        }
+                        catch (System.ObjectDisposedException)
+                        {
+                            Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, "Context Disposed");
+                        }
 
-           MostrarTodosTest(fachada);*/
+                        Console.ReadKey();
+
+                       MostrarTodosTest(fachada);*/
 
         }
 
@@ -92,7 +92,7 @@ namespace EJ02
             {
                 Console.WriteLine("\tContext Disposed");
             }
-            
+
 
 
 
@@ -139,25 +139,75 @@ namespace EJ02
 
         }
 
+        private static void AgregarActualizarPersonaSola()
+        {
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
+
+            Persona mPersona = new Persona
+            {
+                Nombre = DateTime.Now.ToString(),
+                Apellido = "Sánchez",
+                Telefonos = new List<Telefono>()
+            };
+
+            fachada.Create(mPersona);
+            Console.WriteLine("Creada ({0})",mPersona.PersonaId);
+            Console.ReadKey();
+
+            int id = mPersona.PersonaId;
+            mPersona = null;
+
+            mPersona = fachada.GetById(id);
+
+            mPersona.Nombre = "Ramiro"; mPersona.Apellido = "Estuvo aqui";
+
+            Console.WriteLine("Modificada");
+            Console.ReadKey();
+
+            fachada.Update(mPersona);
+
+            Console.WriteLine("Actualizada");
+            Console.ReadKey();
+
+
+        }
+
+        private static void EliminarTest()
+        {
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
+
+            Persona mPersona;
+
+            mPersona = fachada.GetAll().First<Persona>();
+
+            Console.WriteLine("Se Eliminara la primer persona, con nombre: '{0}' y ID: {1}", mPersona.Nombre, mPersona.PersonaId);
+            Console.ReadKey();
+
+            fachada.Delete(mPersona);
+
+            Console.WriteLine("Eliminada");
+            Console.ReadKey();
+        }
+
         static void LeerSinRepo()
         {
-           Persona mPersona2;
+            Persona mPersona2;
             List<Persona> pLista = new List<Persona>();
-           using (AgendaContext ctx = new AgendaContext())
-           {
+            using (AgendaContext ctx = new AgendaContext())
+            {
                 DbSet<Persona> dbset = ctx.Set<Persona>();
 
-               mPersona2 = dbset.Find(1);
+                mPersona2 = dbset.Find(1);
                 pLista = dbset.Include(p => p.Telefonos).ToList<Persona>();
-               MostrarPersona(mPersona2);
+                MostrarPersona(mPersona2);
 
                 // mPersona2.Nombre = "Hola";
             }
             MostrarTodos(pLista);
 
             Console.ReadKey();
-          
-           
+
+
         }
 
         /* Persona mPersona2;
@@ -173,19 +223,49 @@ namespace EJ02
                ctx.SaveChanges();
            }*/
 
+
+        static void UpdateSinRepo()
+        {
+            Random lRandom = new Random();
+            Persona mPersona2;
+
+            using (AgendaContext ctx = new AgendaContext())
+            {
+                int cant = ctx.Set<Persona>().Count<Persona>();
+                lRandom.Next(0, cant - 1);
+                mPersona2 = ctx.Set<Persona>().ToList<Persona>()[lRandom.Next(0, cant - 1)];
+            }
+            mPersona2.Nombre = "Ramiro estuvo aqui";
+            using (AgendaContext ctx = new AgendaContext())
+            {
+                ctx.Entry(mPersona2).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+        }
+
+
+
         static void Main(string[] args)
         {
             //  LeerSinRepo();
 
-            for (int i = 0; i < 10; i++)
-            {
-                AgregarTest();
-            }
-            
-            ActualizarTest();
+            /*   for (int i = 0; i < 10; i++)
+               {
+                   AgregarTest();
+               }
+               */
+            //ActualizarTest();
 
+            /*  AgregarTest();
+              Console.ReadKey();*/
 
+            AgregarActualizarPersonaSola();
+
+           // UpdateSinRepo();
+
+           // EliminarTest();
         }
+
+   
     }
 }
- 
