@@ -32,11 +32,7 @@ namespace EJ02
 
         static void AgregarTest()
         {
-            UnitOfWork uow;
-            CRUDPersonaFacade fachada;
-
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
 
             Persona mPersona = new Persona
             {
@@ -51,11 +47,7 @@ namespace EJ02
             mPersona.Telefonos.Add(mTelefono1);
             mPersona.Telefonos.Add(mTelefono2);
 
-            using (uow)
-            {
-                fachada.Create(mPersona);
-
-            }
+            fachada.Create(mPersona);
 
             Console.WriteLine("Agregada");
             Console.ReadKey();
@@ -108,11 +100,7 @@ namespace EJ02
 
         static void ActualizarTest()
         {
-            UnitOfWork uow;
-            CRUDPersonaFacade fachada;
-
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
 
             Persona mPersona /*= new Persona
             {
@@ -122,44 +110,38 @@ namespace EJ02
                 Telefonos = new List<Telefono>() 
             }*/;
 
-            using (uow)
-            {
-                mPersona = fachada.GetAll()[5];
-                string temp = DateTime.Today.ToString();
-                mPersona.Nombre = mPersona.Nombre + temp;
+            mPersona = fachada.GetAll()[5];
+            string temp = DateTime.Today.ToString();
+            mPersona.Nombre = mPersona.Nombre + temp;
 
-                Console.WriteLine("Nombre viejo: {0}\t Nombre Nuevo: {1}", mPersona.Nombre, mPersona.Nombre + temp);
-                Console.ReadKey();
+            Console.WriteLine("Nombre viejo: {0}\t Nombre Nuevo: {1}", mPersona.Nombre, mPersona.Nombre + temp);
+            Console.ReadKey();
 
-                Telefono mTelefonoNuevo1 = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
-                Telefono mTelefonoNuevo2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
-                mPersona.Telefonos.Add(mTelefonoNuevo1);
-                mPersona.Telefonos.Add(mTelefonoNuevo2);
+            Telefono mTelefonoNuevo1 = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
+            Telefono mTelefonoNuevo2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
+            mPersona.Telefonos.Add(mTelefonoNuevo1);
+            mPersona.Telefonos.Add(mTelefonoNuevo2);
 
-                mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
+            mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
 
-                //mPersona.Telefonos.RemoveAt(1);
+            //mPersona.Telefonos.RemoveAt(1);
 
-                fachada.Update(mPersona);
+            fachada.Update(mPersona);
 
-                Console.WriteLine("Actualizada");
-                Console.ReadKey();
+            Console.WriteLine("Actualizada");
+            Console.ReadKey();
 
-                Persona pers = fachada.GetAll()[5];
-                Console.WriteLine("Get by id Nombre: {0}", pers.Nombre);
-                Console.ReadKey();
+            Persona pers = fachada.GetAll()[5];
+            Console.WriteLine("Get by id Nombre: {0}", pers.Nombre);
+            Console.ReadKey();
 
-                MostrarTodosTest(fachada);
-            }
+            MostrarTodosTest(fachada);
+
         }
 
         private static void AgregarActualizarPersonaSola()
         {
-            UnitOfWork uow;
-            CRUDPersonaFacade fachada;
-
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
 
             Persona mPersona = new Persona
             {
@@ -169,7 +151,7 @@ namespace EJ02
             };
 
             fachada.Create(mPersona);
-            Console.WriteLine("Creada ({0})", mPersona.PersonaId);
+            Console.WriteLine("Creada ({0})",mPersona.PersonaId);
             Console.ReadKey();
 
             int id = mPersona.PersonaId;
@@ -192,27 +174,19 @@ namespace EJ02
 
         private static void EliminarTest()
         {
-            UnitOfWork uow;
-            CRUDPersonaFacade fachada;
-
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            CRUDPersonaFacade fachada = new CRUDPersonaFacade();
 
             Persona mPersona;
 
-            using (uow)
-            {
-                mPersona = fachada.GetAll().First<Persona>();
+            mPersona = fachada.GetAll().First<Persona>();
 
-                Console.WriteLine("Se Eliminara la primer persona, con nombre: '{0}' y ID: {1}", mPersona.Nombre, mPersona.PersonaId);
-                Console.ReadKey();
+            Console.WriteLine("Se Eliminara la primer persona, con nombre: '{0}' y ID: {1}", mPersona.Nombre, mPersona.PersonaId);
+            Console.ReadKey();
 
-                fachada.Delete(mPersona);
+            fachada.Delete(mPersona);
 
-                Console.WriteLine("Eliminada");
-                Console.ReadKey();
-            }
-           
+            Console.WriteLine("Eliminada");
+            Console.ReadKey();
         }
 
         static void LeerSinRepo()
@@ -275,14 +249,11 @@ namespace EJ02
         {
             //  LeerSinRepo();
 
-              /* for (int i = 0; i < 10; i++)
+            /*   for (int i = 0; i < 10; i++)
                {
                    AgregarTest();
-               }*/
-               
-
-
-
+               }
+               */
             ActualizarTest();
 
             /*  AgregarTest();
@@ -290,11 +261,11 @@ namespace EJ02
 
             //AgregarActualizarPersonaSola();
 
-            // UpdateSinRepo();
+           // UpdateSinRepo();
 
-            // EliminarTest();
+           // EliminarTest();
         }
 
-
+   
     }
 }

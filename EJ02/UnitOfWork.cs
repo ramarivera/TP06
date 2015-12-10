@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJ02
 {
-    class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable
     {
         private bool disposed;
 
@@ -35,64 +35,68 @@ namespace EJ02
         }
 
 
-        public GenericRepository<Persona> PersonaRepository
+        public virtual GenericRepository<Persona> PersonaRepository
         {
             get
             {
                 if (this.iPersonaRepository == null)
                 {
-                    this.iPersonaRepository = new GenericRepository<Persona>()
-                    { context = this.context, dbset = this.context.Set<Persona>() };
+                    this.iPersonaRepository = new GenericRepository<Persona>(context);
+                    //{ context = this.context, dbset = this.context.Set<Persona>() };
                 }
                 return this.iPersonaRepository;
             }
         }
 
-        public GenericRepository<Telefono> TelefonoRepository
+        public virtual GenericRepository<Telefono> TelefonoRepository
         {
             get
             {
                 if (this.iTelefonoRepository == null)
                 {
-                    this.iTelefonoRepository = new GenericRepository<Telefono>()
-                    { context = this.context, dbset = this.context.Set<Telefono>() };
+                    this.iTelefonoRepository = new GenericRepository<Telefono>(context);
+                    //{ context = this.context, dbset = this.context.Set<Telefono>() };
                 }
                 return this.iTelefonoRepository;
             }
         }
 
-        public void Save()
+        public virtual void Save()
         {
             context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!disposed)
             {
-                //someone want the deterministic release of all resources
-                //Let us release all the managed resources
-                this.iPersonaRepository = null;
-                this.iTelefonoRepository = null;
-            }
-            else
-            {
-                // Do nothing, no one asked a dispose, the object went out of
-                // scope and finalized is called so lets next round of GC 
-                // release these resources
-            }
+                if (disposing)
+                {
+                    //someone want the deterministic release of all resources
+                    //Let us release all the managed resources
 
-            // Release the unmanaged resource in any case as they will not be 
-            // released by GC
-            if (context != null)
-            {
-                context.Dispose();
-                context = null;
+                    this.iPersonaRepository = null;
+                    this.iTelefonoRepository = null;
+                }
+                else
+                {
+                    // Do nothing, no one asked a dispose, the object went out of
+                    // scope and finalized is called so lets next round of GC 
+                    // release these resources
+                }
+
+                // Release the unmanaged resource in any case as they will not be 
+                // released by GC
+                if (context != null)
+                {
+                    context.Dispose();
+                    context = null;
+                }
+                this.disposed = true;
             }
-            this.disposed = true;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             // If this function is being called the user wants to release the
             // resources. lets call the Dispose which will do this for us.

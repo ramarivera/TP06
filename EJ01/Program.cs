@@ -13,16 +13,23 @@ namespace EJ01
             using (var db = new AgendaContext())
             {
                 // Alta
+                Telefono mTelefono = new Telefono
+                {
+                   // TelefonoId = 1,
+                    Numero = DateTime.Now.ToString(),
+                    Tipo = "Celular"
+                };
                 Persona mPersona = new Persona
                 {
                     PersonaId = 1,
                     Nombre = "Juan",
                     Apellido = "Sánchez",
-                    Telefonos = new List<Telefono>{ new Telefono{ TelefonoId = 1,
-                                                                  Numero = DateTime.Now.ToString(),
-                                                                  Tipo = "Celular"} }
+                    Telefonos = new List<Telefono>{ mTelefono }
                 };
                 db.Personas.Add(mPersona);
+                db.Telefonos.Add(mTelefono);
+                Console.WriteLine("Cambios por guardarse");
+                Console.ReadKey();
                 db.SaveChanges();
                 // busqueda
                 foreach (var item in db.Personas)
@@ -31,10 +38,18 @@ namespace EJ01
                                 item.Nombre,
                                 item.Apellido,
                                 item.PersonaId.ToString());
-                    /*foreach (var tel in item.Telefonos)
+                    if (item.Telefonos != null)
                     {
-                        Console.WriteLine("Numero: {0},Tipo{1}", tel.Numero, tel.Tipo);
-                    }*/
+                        foreach (var tel in item.Telefonos)
+                        {
+                            Console.WriteLine("\tNumero: {0},Tipo{1}", tel.Numero, tel.Tipo);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("\tTelefonos Null");
+                    }
+                    
                 }
                 Console.ReadKey();
             }

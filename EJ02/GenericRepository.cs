@@ -11,21 +11,23 @@ namespace EJ02
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
-        internal DbSet dbset;
-        internal AgendaContext context;
+        internal DbSet<TEntity> dbset;
+        internal DbContext context;
 
 
         public GenericRepository() { }
 
-        /*public GenericRepository(AgendaContext context)
+        public GenericRepository(DbContext context)
         {
             this.context = context;
+            //DbSet<TEntity> set = context.Set<TEntity>();
+            //this.dbset = context.Set(typeof(TEntity));
             this.dbset = context.Set<TEntity>();
-            this.dbset.Load();
-        }*/
+            //this.dbset.Load();
+        }
 
 
-        public IQueryable<TEntity> Queryable
+        public virtual IQueryable<TEntity> Queryable
         {
             get
             {
@@ -33,66 +35,35 @@ namespace EJ02
             }
         }
 
-        public TEntity GetByID(object id)
+        public virtual TEntity GetByID(object id)
         {
-            return (TEntity)this.dbset.Find(id);
+            return (TEntity) this.dbset.Find(id);
         }
 
-        public void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
             dbset.Add(entity);
         }
 
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
             TEntity entityToDelete = this.GetByID(id);
             Delete(entityToDelete);
         }
 
-        public void Delete(TEntity entityToDelete)
+        public virtual void Delete(TEntity entityToDelete)
         {
-            /* object buscado = this.dbset.Find(entityToDelete);
-             if (buscado == null)
-             {
-
-             }
-             if (context.Personas.Where(per => per == entityToDelete).SingleOrDefault<Persona>() == null)
-             {
-
-             }
-             dbset.Remove(entityToDelete);*/
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (context.Entry<TEntity>(entityToDelete).State == EntityState.Detached)
             {
                 dbset.Attach(entityToDelete);
             }
-
-            Persona temp = entityToDelete as Persona;
-
-            if (temp != null)
-            {
-                foreach (var tel in temp.Telefonos)
-                {
-                    Console.WriteLine("Estado: {0}", context.Entry(tel).State.ToString());
-                }
-            }
-
-
             dbset.Remove(entityToDelete);
         }
 
-        public void Update(TEntity entityToUpdate)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            //dbset.Add(entityToUpdate);
-
-           /*if ( (TEntity temp = this.dbset.Find(entityToUpdate.)) != null) {
-
-            }*/
-
-
-            //dbset.Attach(entityToUpdate);
-            //context.Set<TEntity>().
-            Console.WriteLine(context.Entry(entityToUpdate).State  ); 
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            //this.dbset.Add(entityToUpdate);
+            context.Entry<TEntity>(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
