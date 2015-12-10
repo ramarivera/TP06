@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +85,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VentanaListaTelefonos.resx">
+      <DependentUpon>VentanaListaTelefonos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VentanaPersonas.resx">
       <DependentUpon>VentanaPersonas.cs</DependentUpon>
     </EmbeddedResource>

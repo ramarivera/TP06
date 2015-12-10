@@ -14,11 +14,40 @@ namespace EJ02_GUI
     public partial class VentanaListaTelefonos: Form
     {
         Persona persona;
+
+        UnitOfWork uow = new UnitOfWork();
+
+        CRUDPersonaFacade cFachada;
         public VentanaListaTelefonos(Persona pPersona)
         {
             InitializeComponent();
-            this.P
+            this.persona = pPersona;
             this.Name = "Telefonos de "+pPersona.Nombre+" "+pPersona.Apellido;
+            cFachada = new CRUDPersonaFacade(uow);
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            VentanaTelefonos ventana = new VentanaTelefonos(this.persona);
+            ventana.Show();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.dataGridView1.SelectedRows)
+            {
+                Telefono telefono = ((Telefono)row.DataBoundItem);
+                DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el telefono " + telefono.Numero+ "?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                switch (resultado)
+                {
+                    case DialogResult.Yes:
+                        this.persona.Telefonos.Remove(telefono);
+                        this.cFachada.Update(persona);
+                        break;
+                    case DialogResult.No:
+                        break;
+                }
+            }
         }
     }
 }

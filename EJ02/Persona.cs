@@ -12,5 +12,11 @@ namespace EJ02
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public virtual IList<Telefono> Telefonos { get; set; }
+
+
+        public Persona()
+        {
+            this.Telefonos = new List<Telefono>();
+        }
     }
 }
