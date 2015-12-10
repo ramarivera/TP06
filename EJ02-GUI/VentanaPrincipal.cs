@@ -16,7 +16,7 @@ namespace EJ02_GUI
     {
         CRUDPersonaFacade cFachada;
 
-        UnitOfWork ouw = new UnitOfWork();
+        UnitOfWork uow = new UnitOfWork();
 
         BindingList<Persona> iBinding;
 
@@ -25,14 +25,15 @@ namespace EJ02_GUI
         public VentanaPrincipal()
         {
             InitializeComponent();
-            cFachada = new CRUDPersonaFacade(ouw);
+            cFachada = new CRUDPersonaFacade(uow);
             this.iBinding = this.cFachada.GetAll().ToBindingList();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             persona = new Persona();
-            VentanaPersonas ventana = new VentanaPersonas(persona);
+            VentanaPersonas ventana = new VentanaPersonas();
+            ventana.AgregarPersona(persona);
             ventana.Show();
         }
 
@@ -62,12 +63,13 @@ namespace EJ02_GUI
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-            persona.PersonaId = (int)row.Cells[0].Value;
-            persona.Nombre = row.Cells[1].Value.ToString();
-            persona.Apellido = row.Cells[2].Value.ToString();
-            VentanaPersonas ventana = new VentanaPersonas(persona);
+            using (this.uow)
+            {
+                Persona persona = cFachada.GetById((int)row.Cells[0].Value);
+            }
+            VentanaPersonas ventana = new VentanaPersonas();
+            ventana.ModificarPersona(persona);
             ventana.Show();
-
         }
     }
 }

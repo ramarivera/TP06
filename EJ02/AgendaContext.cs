@@ -33,6 +33,7 @@ namespace EJ02
 
             //this.Configuration.LazyLoadingEnabled = false;
             //this.Configuration.ProxyCreationEnabled = false;
+            var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
 
         }
 
