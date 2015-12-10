@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ01", "EJ01\EJ01.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ02.Test", "EJ02.Test\EJ02.Test.csproj", "{3A9EEBE7-8F97-46CC-8299-1A14D5C9D16A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ02-GUI", "EJ02-GUI\EJ02-GUI.csproj", "{908D15BA-C600-449F-94AB-DB559A1DBA4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3A9EEBE7-8F97-46CC-8299-1A14D5C9D16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A9EEBE7-8F97-46CC-8299-1A14D5C9D16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A9EEBE7-8F97-46CC-8299-1A14D5C9D16A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908D15BA-C600-449F-94AB-DB559A1DBA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908D15BA-C600-449F-94AB-DB559A1DBA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908D15BA-C600-449F-94AB-DB559A1DBA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908D15BA-C600-449F-94AB-DB559A1DBA4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

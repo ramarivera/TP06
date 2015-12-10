@@ -7,29 +7,28 @@ using System.Data.Entity;
 
 namespace EJ02
 {
-    public class CRUDPersonaFacade
+    public class CRUDPersonaFacadeCopy
     {
         public UnitOfWork iUnitOfWork;
 
-
-        public CRUDPersonaFacade(UnitOfWork pUOW)
-        {
-            this.iUnitOfWork = pUOW;
-        }
-
         public virtual void Create(Persona pPersona)
         {
+            using (iUnitOfWork = new UnitOfWork())
+            {
                 this.iUnitOfWork.PersonaRepository.Insert(pPersona);
                 /*foreach (var item in pPersona.Telefonos)
                 {
                     this.iUnitOfWork.TelefonoRepository.Insert(item);
                 }*/
                 this.iUnitOfWork.Save();
+            }
 
         }
 
         public virtual void Update(Persona pPersona)
         {
+            using (iUnitOfWork = new UnitOfWork())
+            {
                 Persona lPersonaOriginal = this.iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);
 
                 if (lPersonaOriginal != null)
@@ -71,32 +70,44 @@ namespace EJ02
                 {
                     // Si lTemp es nulo singifica  que la persona no esta cargada y por lo tanto hubo un error
                 }
+
+
+            }
         }
 
         public virtual void Delete(Persona pPersona)
         {
+            using (this.iUnitOfWork = new UnitOfWork())
+            {
                 this.iUnitOfWork.PersonaRepository.Delete(pPersona.PersonaId);
                 this.iUnitOfWork.Save();
+            }
         }
 
         public virtual List<Persona> GetAll()
         {
             List<Persona> lResultado = new List<Persona>();
+            using (iUnitOfWork = new UnitOfWork())
+            {
                 var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos);//.AsNoTracking();//.Select(p => p);
                 // var query = (new AgendaContext()).Set<Persona>().Include(p => p.Telefonos);
                 //query.Load();
                 lResultado = query.ToList<Persona>();
+            }
             return lResultado;
         }
 
         public virtual Persona GetById(int pPersona)
         {
             Persona lResultado;
+            using (iUnitOfWork = new UnitOfWork())
+            {
                 var query = (from persona in this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)//;.AsNoTracking()
                              where persona.PersonaId == pPersona
                              select persona);
 
                 lResultado = query.FirstOrDefault<Persona>();
+            }
             return lResultado;
         }
     }
