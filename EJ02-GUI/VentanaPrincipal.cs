@@ -12,7 +12,7 @@ using EJ02;
 
 namespace EJ02_GUI
 {
-    public partial class Form1 : Form
+    public partial class VentanaPrincipal : Form
     {
         CRUDPersonaFacade cFachada;
 
@@ -21,7 +21,8 @@ namespace EJ02_GUI
         BindingList<Persona> iBinding;
 
         Persona persona;
-        public Form1()
+
+        public VentanaPrincipal()
         {
             InitializeComponent();
             cFachada = new CRUDPersonaFacade(ouw);
@@ -37,13 +38,13 @@ namespace EJ02_GUI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.dataGridView1.DataSource = cFachada.GetById(int.Parse(this.txtBuscar.Text));
-            this.dataGridView1.Refresh();
+            this.dgvPersonas.DataSource = cFachada.GetById(int.Parse(this.txtBuscar.Text));
+            this.dgvPersonas.Refresh();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in this.dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
             {
                 Persona persona = ((Persona)row.DataBoundItem);
                 DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar a " + persona.Nombre + " " + " " + persona.Apellido+ "?","Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -60,7 +61,7 @@ namespace EJ02_GUI
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = dataGridView1.CurrentRow;
+            DataGridViewRow row = dgvPersonas.CurrentRow;
             persona.PersonaId = (int)row.Cells[0].Value;
             persona.Nombre = row.Cells[1].Value.ToString();
             persona.Apellido = row.Cells[2].Value.ToString();
