@@ -14,34 +14,56 @@ namespace EJ02_GUI
 {
     public partial class VentanaPersonas : Form
     {
-        CRUDPersonaFacade cFachada;
+        private Persona iPersonaOriginal;
 
-        UnitOfWork uow = new UnitOfWork();
-
-        Persona persona;
+        public Persona Persona
+        {
+            get { return this.iPersonaOriginal; }
+        }
 
         public VentanaPersonas()
         {
             InitializeComponent();
-            this.cFachada = new CRUDPersonaFacade(uow);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void AgregarPersona(Persona pPersonaNueva)
         {
-            this.persona = new Persona();
-            this.persona.Nombre = this.txtNombre.Text;
-            this.persona.Apellido = this.txtApellido.Text;
-            this.cFachada.Create(persona);
-            MessageBox.Show("Persona agregada correctamente");
+            this.txtId.Text = "--- Sin ID ---";
+            this.txtNombre.Text = String.Empty;
+            this.txtApellido.Text = String.Empty;
+            this.Text = "Agregar nueva Persona";
+            this.iPersonaOriginal = pPersonaNueva;
+        }
+
+        public void ModificarPersona(Persona pPersona)
+        {
+            this.txtId.Text = pPersona.PersonaId.ToString();
+            this.txtNombre.Text = pPersona.Nombre;
+            this.txtApellido.Text = pPersona.Apellido;
+            this.Text = "Modificar Persona";
+            this.iPersonaOriginal = pPersona;
+        }
+
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.iPersonaOriginal.Nombre = this.txtNombre.Text;
+            this.iPersonaOriginal.Apellido = this.txtApellido.Text;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult opcion = MessageBox.Show("¿Desea salir sin guardar los cambios", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult opcion = MessageBox.Show(
+                                        "¿Desea salir sin guardar los cambios",
+                                        "Salir",
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question);
             switch (opcion)
             {
                 case DialogResult.Yes:
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                     break;
                 case DialogResult.No:
