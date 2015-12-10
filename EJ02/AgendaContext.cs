@@ -19,7 +19,7 @@ namespace EJ02
             //Database.SetInitializer<SchoolDBContext>(new SchoolDBInitializer());
         }*/
 
-        
+
 
         public virtual DbSet<Persona> Personas { get; set; }
         public virtual DbSet<Telefono> Telefonos { get; set; }
@@ -42,7 +42,7 @@ namespace EJ02
         {
             //
 
-         /*   modelBuilder.HasDefaultSchema("TDP");
+            modelBuilder.HasDefaultSchema("TDP");
             modelBuilder.Entity<Persona>().ToTable("Persona");
             modelBuilder.Entity<Telefono>().ToTable("Telefono");
 
@@ -66,7 +66,7 @@ namespace EJ02
                         .Property(t => t.TelefonoId)
                         .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            base.OnModelCreating(modelBuilder);*/
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

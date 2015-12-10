@@ -12,12 +12,12 @@ namespace EJ02
     public class GenericRepository<TEntity> where TEntity : class
     {
         internal DbSet<TEntity> dbset;
-        internal AgendaContext context;
+        internal DbContext context;
 
 
         public GenericRepository() { }
 
-        public GenericRepository(AgendaContext context)
+        public GenericRepository(DbContext context)
         {
             this.context = context;
             //DbSet<TEntity> set = context.Set<TEntity>();
@@ -62,7 +62,7 @@ namespace EJ02
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            this.dbset.Attach(entityToUpdate);
+            //this.dbset.Add(entityToUpdate);
             context.Entry<TEntity>(entityToUpdate).State = EntityState.Modified;
         }
     }
