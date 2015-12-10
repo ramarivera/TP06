@@ -24,7 +24,8 @@ namespace EJ02_GUI
         public Form1()
         {
             InitializeComponent();
-            //this.iBinding = this.cFachada.GetAll().ToList();
+            cFachada = new CRUDPersonaFacade(ouw);
+            this.iBinding = this.cFachada.GetAll().ToBindingList();
         }
 
         private void button1_Click(object sender, EventArgs e)
