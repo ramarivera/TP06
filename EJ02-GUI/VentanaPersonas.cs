@@ -48,11 +48,5 @@ namespace EJ02_GUI
                     break;
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            VentanaTelefonos ventana = new VentanaTelefonos(this.persona);
-            ventana.Show();
-        }
     }
 }

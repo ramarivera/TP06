@@ -56,7 +56,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(35, 126);
+            this.btnAceptar.Location = new System.Drawing.Point(52, 126);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(123, 126);
+            this.btnCancelar.Location = new System.Drawing.Point(144, 126);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 3;
@@ -78,21 +78,21 @@
             // 
             this.txtNumero.Location = new System.Drawing.Point(98, 38);
             this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(100, 20);
+            this.txtNumero.Size = new System.Drawing.Size(121, 20);
             this.txtNumero.TabIndex = 4;
             // 
             // txtTipo
             // 
             this.txtTipo.Location = new System.Drawing.Point(98, 73);
             this.txtTipo.Name = "txtTipo";
-            this.txtTipo.Size = new System.Drawing.Size(100, 20);
+            this.txtTipo.Size = new System.Drawing.Size(121, 20);
             this.txtTipo.TabIndex = 5;
             // 
             // VentanaTelefonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(242, 196);
+            this.ClientSize = new System.Drawing.Size(262, 172);
             this.Controls.Add(this.txtTipo);
             this.Controls.Add(this.txtNumero);
             this.Controls.Add(this.btnCancelar);
