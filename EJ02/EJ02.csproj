@@ -100,9 +100,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512091237151_Initial.resx">
-      <DependentUpon>201512091237151_Initial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512091238501_Migracion 01.resx">
       <DependentUpon>201512091238501_Migracion 01.cs</DependentUpon>
     </EmbeddedResource>

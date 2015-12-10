@@ -20,19 +20,19 @@ namespace EJ02_GUI
 
         Persona persona;
 
-        public VentanaPersonas()
+        public VentanaPersonas(Persona pPersona)
         {
             InitializeComponent();
             this.cFachada = new CRUDPersonaFacade(uow);
+            this.persona = pPersona;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.persona = new Persona();
             this.persona.Nombre = this.txtNombre.Text;
             this.persona.Apellido = this.txtApellido.Text;
             this.cFachada.Create(persona);
-            MessageBox.Show("Persona agregada correctamente");
+            MessageBox.Show("Persona actualizada correctamente");
             this.Close();
         }
 

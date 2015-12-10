@@ -84,6 +84,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VentanaListaTelefonos.resx">
+      <DependentUpon>VentanaListaTelefonos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VentanaPersonas.resx">
       <DependentUpon>VentanaPersonas.cs</DependentUpon>
     </EmbeddedResource>
