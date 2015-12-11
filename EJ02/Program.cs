@@ -275,15 +275,36 @@ namespace EJ02
         {
             //  LeerSinRepo();
 
-              /* for (int i = 0; i < 10; i++)
-               {
-                   AgregarTest();
-               }*/
-               
+            /* for (int i = 0; i < 10; i++)
+             {
+                 AgregarTest();
+             }*/
+
+            UnitOfWork uow;
+            CRUDPersonaFacade fachada;
+
+            uow = new UnitOfWork();
+            fachada = new CRUDPersonaFacade(uow);
+
+            Persona pers;
+
+            using (uow)
+            {
+                pers = fachada.GetById(20);
+            }
+
+            MostrarPersona(pers);
+
+            using (uow = new UnitOfWork())
+            {
+                pers = fachada.GetById(25);
+
+            }
 
 
+            MostrarPersona(pers);
 
-            ActualizarTest();
+          //  ActualizarTest();
 
             /*  AgregarTest();
               Console.ReadKey();*/

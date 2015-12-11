@@ -45,21 +45,23 @@ namespace EJ02_GUI
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Telefono telefono = new Telefono();
-            telefono.Numero = this.txtNumero.Text;
-            telefono.Tipo = this.txtTipo.Text;
-            this.persona.Telefonos.Add(telefono);
-            cFachada.Update(this.persona);
-            MessageBox.Show("Telefono agregado correctamente");
+            iTelefonoOriginal.Numero = this.txtNumero.Text;
+            iTelefonoOriginal.Tipo = this.txtTipo.Text;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult opcion = MessageBox.Show("¿Desea salir sin guardar los cambios", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult opcion = MessageBox.Show(
+                                        "¿Desea salir sin guardar los cambios",
+                                        "Salir",
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question);
             switch (opcion)
             {
                 case DialogResult.Yes:
+                    this.DialogResult = DialogResult.No;
                     this.Close();
                     break;
                 case DialogResult.No:

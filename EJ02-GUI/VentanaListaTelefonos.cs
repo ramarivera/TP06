@@ -28,13 +28,19 @@ namespace EJ02_GUI
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            VentanaTelefonos ventana = new VentanaTelefonos(this.persona);
-            ventana.Show();
+            Telefono lTelefono = new Telefono();
+            VentanaTelefonos ventana = new VentanaTelefonos();
+            ventana.AgregarTelefono(lTelefono);
+            ventana.ShowDialog();
+            if (DialogResult.Yes == ventana.DialogResult)
+            {
+
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in this.dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in this.dgvTelefonos.SelectedRows)
             {
                 Telefono telefono = ((Telefono)row.DataBoundItem);
                 DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el telefono " + telefono.Numero+ "?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
