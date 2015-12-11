@@ -83,10 +83,9 @@ namespace EJ02_GUI
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-            Persona persona;
             using (this.uow)
             {
-                persona = cFachada.GetById((int)row.Cells[0].Value);
+                this.persona = cFachada.GetById((int)row.Cells[0].Value);
                 VentanaPersonas ventana = new VentanaPersonas();
                 ventana.ModificarPersona(persona);
                 DialogResult resultado = ventana.ShowDialog();
@@ -96,6 +95,17 @@ namespace EJ02_GUI
                 }
             }
             
+        }
+
+        private void btnTelefonos_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = dgvPersonas.CurrentRow;
+            using (this.uow)
+            {
+                this.persona = cFachada.GetById((int)row.Cells[0].Value);
+                VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
+                ventana.Show();
+            }
         }
     }
 }

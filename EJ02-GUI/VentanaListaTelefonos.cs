@@ -18,12 +18,15 @@ namespace EJ02_GUI
         UnitOfWork uow = new UnitOfWork();
 
         CRUDPersonaFacade cFachada;
+
+        BindingList<Telefono> iBinding;
         public VentanaListaTelefonos(Persona pPersona)
         {
             InitializeComponent();
             this.persona = pPersona;
-            this.Name = "Telefonos de "+pPersona.Nombre+" "+pPersona.Apellido;
             cFachada = new CRUDPersonaFacade(uow);
+            this.iBinding = this.persona.Telefonos.ToBindingList();
+            this.dgvTelefonos.DataSource = this.iBinding;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -34,7 +37,11 @@ namespace EJ02_GUI
             ventana.ShowDialog();
             if (DialogResult.Yes == ventana.DialogResult)
             {
-
+                this.persona.Telefonos.Add(lTelefono);
+                using (uow)
+                {
+                    this.cFachada.Update(persona);
+                }
             }
         }
 
@@ -48,10 +55,35 @@ namespace EJ02_GUI
                 {
                     case DialogResult.Yes:
                         this.persona.Telefonos.Remove(telefono);
-                        this.cFachada.Update(persona);
+                        using (uow)
+                        {
+                            this.cFachada.Update(persona);
+                        }
                         break;
                     case DialogResult.No:
                         break;
+                }
+            }
+        }
+
+        private void dgvTelefonos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dgvTelefonos.CurrentRow;
+            int lugar = row.Index;
+            Telefono telefono = new Telefono();
+            using (this.uow)
+            {
+                telefono.TelefonoId = (int)row.Cells[0].Value;
+                telefono.Numero = row.Cells[1].Value.ToString();
+                telefono.Tipo = row.Cells[2].Value.ToString();
+                VentanaTelefonos ventana = new VentanaTelefonos();
+                ventana.ModificarTelefono(telefono);
+                DialogResult resultado = ventana.ShowDialog();
+                if (resultado == DialogResult.OK)
+                {
+                    persona.Telefonos.RemoveAt(lugar);
+                    persona.Telefonos.Insert(lugar, telefono);
+                    cFachada.Update(persona);
                 }
             }
         }
