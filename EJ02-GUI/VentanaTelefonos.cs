@@ -13,16 +13,34 @@ namespace EJ02_GUI
 {
     public partial class VentanaTelefonos : Form
     {
-        CRUDPersonaFacade cFachada;
+        private Telefono iTelefonoOriginal;
 
-        UnitOfWork uow = new UnitOfWork();
+        public Telefono Telefono
+        {
+            get { return this.iTelefonoOriginal; }
+        }
 
-        Persona persona;
-        public VentanaTelefonos(Persona pPersona)
+        public VentanaTelefonos()
         {
             InitializeComponent();
-            this.cFachada = new CRUDPersonaFacade(uow);
-            this.persona = pPersona;
+        }
+
+        public void AgregarTelefono(Telefono pTelefonoNuevo)
+        {
+            this.txtId.Text = "--- Sin ID ---";
+            this.txtNumero.Text = String.Empty;
+            this.txtTipo.Text = String.Empty;
+            this.Text = "Agregar nuevo Telefono";
+            this.iTelefonoOriginal = pTelefonoNuevo;
+        }
+
+        public void ModificarTelefono(Telefono pTelefono)
+        {
+            this.txtId.Text = pTelefono.TelefonoId.ToString();
+            this.txtNumero.Text = pTelefono.Numero;
+            this.txtTipo.Text = pTelefono.Tipo;
+            this.Text = "Modificar Telefono";
+            this.iTelefonoOriginal = pTelefono;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
