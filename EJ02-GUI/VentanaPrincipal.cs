@@ -14,9 +14,7 @@ namespace EJ02_GUI
 {
     public partial class VentanaPrincipal : Form
     {
-        CRUDPersonaFacade cFachada;
-
-        UnitOfWork uow = new UnitOfWork();
+        CRUDPersonaFacade iFachada;
 
         BindingList<Persona> iBinding;
 
@@ -25,8 +23,8 @@ namespace EJ02_GUI
         public VentanaPrincipal()
         {
             InitializeComponent();
-            cFachada = new CRUDPersonaFacade(uow);
-            this.iBinding = this.cFachada.GetAll().ToBindingList();
+            iFachada = new CRUDPersonaFacade();
+            this.iBinding = this.iFachada.GetAll().ToBindingList();
             this.dgvPersonas.DataSource = this.iBinding;
         }
 
@@ -38,10 +36,7 @@ namespace EJ02_GUI
             DialogResult resultado = ventana.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                using (this.uow)
-                {
-                    cFachada.Create(persona);
-                }
+                    iFachada.Create(persona);
             }
              
 
@@ -49,19 +44,14 @@ namespace EJ02_GUI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            using (uow)
-            {
                 this.iBinding.Clear();
-                this.iBinding.Add(cFachada.GetById(int.Parse(this.txtBuscar.Text)));
+                this.iBinding.Add(iFachada.GetById(int.Parse(this.txtBuscar.Text)));
                 this.dgvPersonas.Refresh();
-            }
             
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (uow)
-            {
                 foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
                 {
                     Persona persona = ((Persona)row.DataBoundItem);
@@ -69,13 +59,12 @@ namespace EJ02_GUI
                     switch (resultado)
                     {
                         case DialogResult.Yes:
-                            this.cFachada.Delete(persona);
+                            this.iFachada.Delete(persona);
                             this.iBinding.Remove(persona);
                             break;
                         case DialogResult.No:
                             break;
                     }
-                }
             }
             
         }
@@ -83,33 +72,27 @@ namespace EJ02_GUI
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-            using (this.uow)
-            {
-                this.persona = cFachada.GetById((int)row.Cells[0].Value);
+                this.persona = iFachada.GetById((int)row.Cells[0].Value);
                 VentanaPersonas ventana = new VentanaPersonas();
                 ventana.ModificarPersona(persona);
                 DialogResult resultado = ventana.ShowDialog();
                 if (resultado == DialogResult.OK)
                 {
-                    cFachada.Update(persona);
+                    iFachada.Update(persona);
                 }
-            }
             
         }
 
         private void btnTelefonos_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-            using (this.uow)
-            {
-                this.persona = cFachada.GetById((int)row.Cells[0].Value);
+                this.persona = iFachada.GetById((int)row.Cells[0].Value);
                 VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
                 DialogResult resultado = ventana.ShowDialog();
                 if ((resultado == DialogResult.OK) || (resultado == DialogResult.Cancel))
                 {
-                    cFachada.Update(persona);
+                    iFachada.Update(persona);
                 }
-            }
         }
     }
 }
