@@ -27,6 +27,7 @@ namespace EJ02_GUI
             InitializeComponent();
             cFachada = new CRUDPersonaFacade(uow);
             this.iBinding = this.cFachada.GetAll().ToBindingList();
+            this.dgvPersonas.DataSource = this.iBinding;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,42 +35,67 @@ namespace EJ02_GUI
             persona = new Persona();
             VentanaPersonas ventana = new VentanaPersonas();
             ventana.AgregarPersona(persona);
-            ventana.Show();
+            DialogResult resultado = ventana.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                using (this.uow)
+                {
+                    cFachada.Create(persona);
+                }
+            }
+             
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.dgvPersonas.DataSource = cFachada.GetById(int.Parse(this.txtBuscar.Text));
-            this.dgvPersonas.Refresh();
+            using (uow)
+            {
+                this.iBinding.Clear();
+                this.iBinding.Add(cFachada.GetById(int.Parse(this.txtBuscar.Text)));
+                this.dgvPersonas.Refresh();
+            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
+            using (uow)
             {
-                Persona persona = ((Persona)row.DataBoundItem);
-                DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar a " + persona.Nombre + " " + " " + persona.Apellido+ "?","Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                switch (resultado)
+                foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
                 {
-                    case DialogResult.Yes:
-                        this.cFachada.Delete(persona);
-                        break;
-                    case DialogResult.No:
-                        break;
+                    Persona persona = ((Persona)row.DataBoundItem);
+                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar a " + persona.Nombre + " " + " " + persona.Apellido + "?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    switch (resultado)
+                    {
+                        case DialogResult.Yes:
+                            this.cFachada.Delete(persona);
+                            this.iBinding.Remove(persona);
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
                 }
             }
+            
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
+            Persona persona;
             using (this.uow)
             {
-                Persona persona = cFachada.GetById((int)row.Cells[0].Value);
+                persona = cFachada.GetById((int)row.Cells[0].Value);
+                VentanaPersonas ventana = new VentanaPersonas();
+                ventana.ModificarPersona(persona);
+                DialogResult resultado = ventana.ShowDialog();
+                if (resultado == DialogResult.OK)
+                {
+                    cFachada.Update(persona);
+                }
             }
-            VentanaPersonas ventana = new VentanaPersonas();
-            ventana.ModificarPersona(persona);
-            ventana.Show();
+            
         }
     }
 }
