@@ -40,6 +40,10 @@
             // 
             // dgvTelefonos
             // 
+            this.dgvTelefonos.AllowUserToAddRows = false;
+            this.dgvTelefonos.AllowUserToDeleteRows = false;
+            this.dgvTelefonos.AllowUserToResizeColumns = false;
+            this.dgvTelefonos.AllowUserToResizeRows = false;
             this.dgvTelefonos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTelefonos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTelefonos.Location = new System.Drawing.Point(3, 3);

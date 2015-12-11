@@ -15,16 +15,12 @@ namespace EJ02_GUI
     {
         Persona persona;
 
-        UnitOfWork uow = new UnitOfWork();
-
-        CRUDPersonaFacade cFachada;
-
         BindingList<Telefono> iBinding;
+
         public VentanaListaTelefonos(Persona pPersona)
         {
             InitializeComponent();
             this.persona = pPersona;
-            cFachada = new CRUDPersonaFacade(uow);
             this.iBinding = this.persona.Telefonos.ToBindingList();
             this.dgvTelefonos.DataSource = this.iBinding;
         }
@@ -37,7 +33,7 @@ namespace EJ02_GUI
             ventana.ShowDialog();
             if (ventana.DialogResult == DialogResult.OK)
             {
-                this.persona.Telefonos.Add(lTelefono);
+                this.iBinding.Add(lTelefono);
             }
         }
 
@@ -50,9 +46,8 @@ namespace EJ02_GUI
                 switch (resultado)
                 {
                     case DialogResult.Yes:
-                        this.persona.Telefonos.Remove(telefono);
                         this.iBinding.Remove(telefono);
-                        this.dgvTelefonos.Refresh();
+                        //this.dgvTelefonos.Refresh();
                         break;
                     case DialogResult.No:
                         break;
@@ -67,16 +62,14 @@ namespace EJ02_GUI
             Telefono telefono = new Telefono();
             //using (this.uow)
             //{
-                telefono.TelefonoId = (int)row.Cells[0].Value;
-                telefono.Numero = row.Cells[1].Value.ToString();
-                telefono.Tipo = row.Cells[2].Value.ToString();
+            telefono = this.iBinding.SingleOrDefault<Telefono>(t => t.TelefonoId == ((int)row.Cells[0].Value));  
+                
                 VentanaTelefonos ventana = new VentanaTelefonos();
                 ventana.ModificarTelefono(telefono);
-                DialogResult resultado = ventana.ShowDialog();
-                if (resultado == DialogResult.OK)
+                ventana.ShowDialog();
+                if (ventana.DialogResult == DialogResult.OK)
                 {
-                    persona.Telefonos.RemoveAt(lugar);
-                    persona.Telefonos.Insert(lugar, telefono);
+                    this.iBinding[lugar] = telefono;
                     //cFachada.Update(persona);
                 }
            // }
