@@ -12,6 +12,11 @@ namespace EJ02
         public UnitOfWork iUnitOfWork;
 
 
+        public CRUDPersonaFacade ()
+        {
+            this.iUnitOfWork = new UnitOfWork();
+        }
+
         public CRUDPersonaFacade(UnitOfWork pUOW)
         {
             this.iUnitOfWork = pUOW;
