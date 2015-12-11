@@ -28,7 +28,14 @@ namespace EJ02
 
         }
 
+        static void MostrarTodosTest(CRUDPersonaFacadeCopy fachada)
+        {
+            List<Persona> lista = fachada.GetAll();
+            Console.WriteLine("Get all, Resultados");
+            Console.ReadKey();
+            MostrarTodos(lista);
 
+        }
 
         static void AgregarTest()
         {
@@ -114,13 +121,13 @@ namespace EJ02
             uow = new UnitOfWork();
             fachada = new CRUDPersonaFacade(uow);
 
-            Persona mPersona /*= new Persona
+            Persona mPersona = new Persona
             {
-                PersonaId = 2,
+                PersonaId = 40,
                 Nombre = "Martin",
                 Apellido = "Fijo",
                 Telefonos = new List<Telefono>() 
-            }*/;
+            };
 
             using (uow)
             {
@@ -139,6 +146,12 @@ namespace EJ02
                 mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
 
                 //mPersona.Telefonos.RemoveAt(1);
+            }
+            uow = new UnitOfWork();
+            fachada = new CRUDPersonaFacade(uow);
+
+            using (uow)
+            {
 
                 fachada.Update(mPersona);
 
@@ -212,7 +225,7 @@ namespace EJ02
                 Console.WriteLine("Eliminada");
                 Console.ReadKey();
             }
-           
+
         }
 
         static void LeerSinRepo()
@@ -270,6 +283,56 @@ namespace EJ02
         }
 
 
+        static void ActualizarTestSinUOW()
+        {
+            CRUDPersonaFacadeCopy fachada;
+
+            fachada = new CRUDPersonaFacadeCopy();
+
+            /* Persona mPersona;
+             mPersona = fachada.GetAll()[5];
+             */
+            Persona mPersona = new Persona
+            {
+                PersonaId = 74,
+                Nombre = "Martin",
+                Apellido = "Fijo",
+                Telefonos = new List<Telefono>()
+            };
+
+
+            fachada.Update(mPersona);
+
+
+            string temp = DateTime.Today.ToString();
+            mPersona.Nombre = mPersona.Nombre + temp;
+
+            Console.WriteLine("Nombre viejo: {0}\t Nombre Nuevo: {1}", mPersona.Nombre, mPersona.Nombre + temp);
+            Console.ReadKey();
+
+            Telefono mTelefonoNuevo1 = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
+            Telefono mTelefonoNuevo2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
+            mPersona.Telefonos.Add(mTelefonoNuevo1);
+            mPersona.Telefonos.Add(mTelefonoNuevo2);
+
+            mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
+
+            //mPersona.Telefonos.RemoveAt(1);
+
+
+            Console.WriteLine("Actualizada");
+            Console.ReadKey();
+
+            Persona pers = fachada.GetAll()[5];
+            Console.WriteLine("Get by id Nombre: {0}", pers.Nombre);
+            Console.ReadKey();
+
+            MostrarTodosTest(fachada);
+
+        }
+
+
+
 
         static void Main(string[] args)
         {
@@ -280,31 +343,11 @@ namespace EJ02
                  AgregarTest();
              }*/
 
-            UnitOfWork uow;
-            CRUDPersonaFacade fachada;
+            ActualizarTest();
+            Console.ReadKey();
 
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
-
-            Persona pers;
-
-            using (uow)
-            {
-                pers = fachada.GetById(20);
-            }
-
-            MostrarPersona(pers);
-
-            using (uow = new UnitOfWork())
-            {
-                pers = fachada.GetById(25);
-
-            }
-
-
-            MostrarPersona(pers);
-
-          //  ActualizarTest();
+            ActualizarTestSinUOW();
+            //  ActualizarTest();
 
             /*  AgregarTest();
               Console.ReadKey();*/

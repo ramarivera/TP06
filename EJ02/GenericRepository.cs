@@ -63,6 +63,7 @@ namespace EJ02
         public virtual void Update(TEntity entityToUpdate)
         {
             //this.dbset.Add(entityToUpdate);
+
             context.Entry<TEntity>(entityToUpdate).State = EntityState.Modified;
         }
     }
