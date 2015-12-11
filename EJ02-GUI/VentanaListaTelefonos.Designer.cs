@@ -46,6 +46,7 @@
             this.dgvTelefonos.Name = "dgvTelefonos";
             this.dgvTelefonos.Size = new System.Drawing.Size(304, 172);
             this.dgvTelefonos.TabIndex = 0;
+            this.dgvTelefonos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTelefonos_CellContentDoubleClick);
             // 
             // btnAgregar
             // 
