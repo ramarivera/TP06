@@ -34,14 +34,10 @@ namespace EJ02_GUI
             Telefono lTelefono = new Telefono();
             VentanaTelefonos ventana = new VentanaTelefonos();
             ventana.AgregarTelefono(lTelefono);
-            DialogResult resultado = ventana.ShowDialog();
-            if (DialogResult.OK == resultado)
+            ventana.ShowDialog();
+            if (ventana.DialogResult == DialogResult.OK)
             {
                 this.persona.Telefonos.Add(lTelefono);
-                /*using (uow)
-                {
-                    this.cFachada.Update(persona);
-                }*/
             }
         }
 
@@ -57,10 +53,6 @@ namespace EJ02_GUI
                         this.persona.Telefonos.Remove(telefono);
                         this.iBinding.Remove(telefono);
                         this.dgvTelefonos.Refresh();
-                        /*using (uow)
-                        {
-                            this.cFachada.Update(persona);
-                        }*/
                         break;
                     case DialogResult.No:
                         break;
@@ -92,8 +84,16 @@ namespace EJ02_GUI
 
         private void VentanaListaTelefonos_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MessageBox.Show("¿Desea salir sin guardar los cambios?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
+            DialogResult resultado = MessageBox.Show("¿Desea guardar los cambios antes de salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            switch (resultado)
+            {
+                case DialogResult.Yes:
+                    this.DialogResult = DialogResult.OK;
+                    break;
+                case DialogResult.No:
+                    this.DialogResult = DialogResult.Cancel;
+                    break;
+            }
         }
     }
 }

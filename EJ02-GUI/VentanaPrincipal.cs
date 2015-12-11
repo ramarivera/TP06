@@ -88,8 +88,8 @@ namespace EJ02_GUI
             DataGridViewRow row = dgvPersonas.CurrentRow;
                 this.persona = iFachada.GetById((int)row.Cells[0].Value);
                 VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
-                DialogResult resultado = ventana.ShowDialog();
-                if ((resultado == DialogResult.OK) || (resultado == DialogResult.Cancel))
+                this.DialogResult = ventana.ShowDialog();
+                if (this.DialogResult == DialogResult.OK)
                 {
                     iFachada.Update(persona);
                 }
