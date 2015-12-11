@@ -89,5 +89,11 @@ namespace EJ02_GUI
                 }
            // }
         }
+
+        private void VentanaListaTelefonos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("¿Desea salir sin guardar los cambios?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        }
     }
 }

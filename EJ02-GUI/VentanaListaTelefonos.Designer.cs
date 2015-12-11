@@ -115,6 +115,7 @@
             this.MinimumSize = new System.Drawing.Size(413, 217);
             this.Name = "VentanaListaTelefonos";
             this.Text = "Gestionar Telefonos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VentanaListaTelefonos_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTelefonos)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
