@@ -34,14 +34,14 @@ namespace EJ02_GUI
             Telefono lTelefono = new Telefono();
             VentanaTelefonos ventana = new VentanaTelefonos();
             ventana.AgregarTelefono(lTelefono);
-            ventana.ShowDialog();
-            if (DialogResult.Yes == ventana.DialogResult)
+            DialogResult resultado = ventana.ShowDialog();
+            if (DialogResult.OK == resultado)
             {
                 this.persona.Telefonos.Add(lTelefono);
-                using (uow)
+                /*using (uow)
                 {
                     this.cFachada.Update(persona);
-                }
+                }*/
             }
         }
 
@@ -55,10 +55,12 @@ namespace EJ02_GUI
                 {
                     case DialogResult.Yes:
                         this.persona.Telefonos.Remove(telefono);
-                        using (uow)
+                        this.iBinding.Remove(telefono);
+                        this.dgvTelefonos.Refresh();
+                        /*using (uow)
                         {
                             this.cFachada.Update(persona);
-                        }
+                        }*/
                         break;
                     case DialogResult.No:
                         break;
@@ -71,8 +73,8 @@ namespace EJ02_GUI
             DataGridViewRow row = dgvTelefonos.CurrentRow;
             int lugar = row.Index;
             Telefono telefono = new Telefono();
-            using (this.uow)
-            {
+            //using (this.uow)
+            //{
                 telefono.TelefonoId = (int)row.Cells[0].Value;
                 telefono.Numero = row.Cells[1].Value.ToString();
                 telefono.Tipo = row.Cells[2].Value.ToString();
@@ -83,9 +85,9 @@ namespace EJ02_GUI
                 {
                     persona.Telefonos.RemoveAt(lugar);
                     persona.Telefonos.Insert(lugar, telefono);
-                    cFachada.Update(persona);
+                    //cFachada.Update(persona);
                 }
-            }
+           // }
         }
     }
 }

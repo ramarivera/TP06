@@ -104,7 +104,11 @@ namespace EJ02_GUI
             {
                 this.persona = cFachada.GetById((int)row.Cells[0].Value);
                 VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
-                ventana.Show();
+                DialogResult resultado = ventana.ShowDialog();
+                if ((resultado == DialogResult.OK) || (resultado == DialogResult.Cancel))
+                {
+                    cFachada.Update(persona);
+                }
             }
         }
     }
