@@ -1,4 +1,4 @@
-﻿namespace EJ02_GUI
+﻿namespace EJ02.UI
 {
     partial class VentanaPrincipal
     {
@@ -61,7 +61,7 @@
             this.pnlPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.83562F));
             this.pnlPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.pnlPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.pnlPrincipal.Size = new System.Drawing.Size(317, 276);
+            this.pnlPrincipal.Size = new System.Drawing.Size(427, 276);
             this.pnlPrincipal.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -71,36 +71,37 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.88535F));
             this.tableLayoutPanel1.Controls.Add(this.lblBuscar, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtBuscar, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(307, 21);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(421, 29);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // lblBuscar
             // 
             this.lblBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBuscar.AutoSize = true;
-            this.lblBuscar.Location = new System.Drawing.Point(9, 0);
+            this.lblBuscar.Location = new System.Drawing.Point(17, 8);
             this.lblBuscar.Name = "lblBuscar";
-            this.lblBuscar.Size = new System.Drawing.Size(61, 21);
+            this.lblBuscar.Size = new System.Drawing.Size(75, 13);
             this.lblBuscar.TabIndex = 4;
             this.lblBuscar.Text = "Buscar por ID:";
             // 
             // txtBuscar
             // 
             this.txtBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtBuscar.Location = new System.Drawing.Point(92, 3);
+            this.txtBuscar.Location = new System.Drawing.Point(127, 4);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(203, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(276, 20);
             this.txtBuscar.TabIndex = 3;
             // 
             // btnBuscar
             // 
             this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.btnBuscar.Location = new System.Drawing.Point(121, 38);
+            this.btnBuscar.Location = new System.Drawing.Point(176, 38);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 21);
             this.btnBuscar.TabIndex = 2;
@@ -110,12 +111,17 @@
             // 
             // dgvPersonas
             // 
+            this.dgvPersonas.AllowUserToAddRows = false;
+            this.dgvPersonas.AllowUserToDeleteRows = false;
+            this.dgvPersonas.AllowUserToResizeRows = false;
             this.dgvPersonas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPersonas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPersonas.Location = new System.Drawing.Point(3, 65);
             this.dgvPersonas.Name = "dgvPersonas";
-            this.dgvPersonas.Size = new System.Drawing.Size(311, 169);
+            this.dgvPersonas.RowHeadersVisible = false;
+            this.dgvPersonas.Size = new System.Drawing.Size(421, 169);
             this.dgvPersonas.TabIndex = 0;
+            this.dgvPersonas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPersonas_CellContentClick);
             this.dgvPersonas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
             // pnlBotones
@@ -132,13 +138,13 @@
             this.pnlBotones.Name = "pnlBotones";
             this.pnlBotones.RowCount = 1;
             this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlBotones.Size = new System.Drawing.Size(311, 33);
+            this.pnlBotones.Size = new System.Drawing.Size(421, 33);
             this.pnlBotones.TabIndex = 1;
             // 
             // btnAgregar
             // 
             this.btnAgregar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAgregar.Location = new System.Drawing.Point(14, 5);
+            this.btnAgregar.Location = new System.Drawing.Point(32, 5);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 2;
@@ -149,7 +155,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnEliminar.Location = new System.Drawing.Point(117, 5);
+            this.btnEliminar.Location = new System.Drawing.Point(172, 5);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 3;
@@ -160,7 +166,7 @@
             // btnTelefonos
             // 
             this.btnTelefonos.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnTelefonos.Location = new System.Drawing.Point(217, 5);
+            this.btnTelefonos.Location = new System.Drawing.Point(309, 5);
             this.btnTelefonos.Name = "btnTelefonos";
             this.btnTelefonos.Size = new System.Drawing.Size(82, 23);
             this.btnTelefonos.TabIndex = 4;
@@ -172,13 +178,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(317, 276);
+            this.ClientSize = new System.Drawing.Size(427, 276);
             this.Controls.Add(this.pnlPrincipal);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(333, 315);
             this.MinimumSize = new System.Drawing.Size(333, 315);
             this.Name = "VentanaPrincipal";
             this.Text = "Gestionar Personas";
+            this.Load += new System.EventHandler(this.VentanaPrincipal_Load);
             this.pnlPrincipal.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

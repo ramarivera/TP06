@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Practices.Unity;
 
-namespace EJ02_GUI
+namespace EJ02.UI
 {
     static class Program
     {
@@ -16,7 +17,8 @@ namespace EJ02_GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VentanaPrincipal());
+            VentanaPrincipal lVentana = IoCContainerLocator.Container.Resolve<VentanaPrincipal>();
+            Application.Run(lVentana);
         }
     }
 }

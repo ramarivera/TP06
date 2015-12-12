@@ -28,15 +28,7 @@ namespace EJ02
 
         }
 
-        static void MostrarTodosTest(CRUDPersonaFacadeCopy fachada)
-        {
-            List<Persona> lista = fachada.GetAll();
-            Console.WriteLine("Get all, Resultados");
-            Console.ReadKey();
-            MostrarTodos(lista);
-
-        }
-
+      
         static void AgregarTest()
         {
             UnitOfWork uow;
@@ -283,53 +275,7 @@ namespace EJ02
         }
 
 
-        static void ActualizarTestSinUOW()
-        {
-            CRUDPersonaFacadeCopy fachada;
-
-            fachada = new CRUDPersonaFacadeCopy();
-
-            /* Persona mPersona;
-             mPersona = fachada.GetAll()[5];
-             */
-            Persona mPersona = new Persona
-            {
-                PersonaId = 74,
-                Nombre = "Martin",
-                Apellido = "Fijo",
-                Telefonos = new List<Telefono>()
-            };
-
-
-            fachada.Update(mPersona);
-
-
-            string temp = DateTime.Today.ToString();
-            mPersona.Nombre = mPersona.Nombre + temp;
-
-            Console.WriteLine("Nombre viejo: {0}\t Nombre Nuevo: {1}", mPersona.Nombre, mPersona.Nombre + temp);
-            Console.ReadKey();
-
-            Telefono mTelefonoNuevo1 = new Telefono { Numero = DateTime.Now.ToString(), Tipo = "Fijo" };
-            Telefono mTelefonoNuevo2 = new Telefono { Numero = DateTime.Today.ToString(), Tipo = "CeroOchocientos" };
-            mPersona.Telefonos.Add(mTelefonoNuevo1);
-            mPersona.Telefonos.Add(mTelefonoNuevo2);
-
-            mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
-
-            //mPersona.Telefonos.RemoveAt(1);
-
-
-            Console.WriteLine("Actualizada");
-            Console.ReadKey();
-
-            Persona pers = fachada.GetAll()[5];
-            Console.WriteLine("Get by id Nombre: {0}", pers.Nombre);
-            Console.ReadKey();
-
-            MostrarTodosTest(fachada);
-
-        }
+        
 
 
 
@@ -346,7 +292,7 @@ namespace EJ02
             ActualizarTest();
             Console.ReadKey();
 
-            ActualizarTestSinUOW();
+           
             //  ActualizarTest();
 
             /*  AgregarTest();

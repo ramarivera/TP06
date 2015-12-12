@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EJ02_GUI
+namespace EJ02.UI
 {
     public static class Extension
     {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EJ02;
 
-namespace EJ02_GUI
+namespace EJ02.UI
 {
     public partial class VentanaListaTelefonos: Form
     {
