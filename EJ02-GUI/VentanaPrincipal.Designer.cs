@@ -71,28 +71,29 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.88535F));
             this.tableLayoutPanel1.Controls.Add(this.lblBuscar, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtBuscar, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(307, 21);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(311, 29);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // lblBuscar
             // 
             this.lblBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBuscar.AutoSize = true;
-            this.lblBuscar.Location = new System.Drawing.Point(9, 0);
+            this.lblBuscar.Location = new System.Drawing.Point(3, 8);
             this.lblBuscar.Name = "lblBuscar";
-            this.lblBuscar.Size = new System.Drawing.Size(61, 21);
+            this.lblBuscar.Size = new System.Drawing.Size(75, 13);
             this.lblBuscar.TabIndex = 4;
             this.lblBuscar.Text = "Buscar por ID:";
             // 
             // txtBuscar
             // 
             this.txtBuscar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtBuscar.Location = new System.Drawing.Point(92, 3);
+            this.txtBuscar.Location = new System.Drawing.Point(94, 4);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(203, 20);
             this.txtBuscar.TabIndex = 3;
