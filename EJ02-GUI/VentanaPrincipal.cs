@@ -13,7 +13,7 @@ using EJ02;
 namespace EJ02_GUI
 {
     public partial class VentanaPrincipal : Form
-    {
+    { 
         CRUDPersonaFacade iFachada;
 
         BindingList<Persona> iBinding;
