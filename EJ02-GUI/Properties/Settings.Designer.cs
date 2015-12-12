@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EJ02_GUI.Properties
+namespace EJ02.UI.Properties
 {
 
 

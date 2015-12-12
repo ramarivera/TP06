@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using EJ02;
 
-namespace EJ02_GUI
+namespace EJ02.UI
 {
     public partial class VentanaPrincipal : Form
     { 
@@ -20,13 +20,57 @@ namespace EJ02_GUI
 
         Persona persona;
 
-        public VentanaPrincipal()
+        public VentanaPrincipal(CRUDPersonaFacade pFachada)
         {
             InitializeComponent();
-            iFachada = new CRUDPersonaFacade();
-            this.iBinding = this.iFachada.GetAll().ToBindingList();
-            this.dgvPersonas.DataSource = this.iBinding;
+            this.iFachada = pFachada;
+            
         }
+        private void VentanaPrincipal_Load(object sender, EventArgs e)
+        {
+            this.iBinding = this.iFachada.GetAll().ToBindingList();
+            InicializarDataGridView();
+        }
+
+        private void InicializarDataGridView()
+        {
+            this.dgvPersonas.DataSource = this.iBinding;
+            this.dgvPersonas.ReadOnly = true;
+            this.dgvPersonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            DataGridViewButtonColumn btnGestionar = new DataGridViewButtonColumn();
+            btnGestionar.Name = "Telefonos";
+            btnGestionar.Text = "Gestionar";
+            btnGestionar.UseColumnTextForButtonValue = true;
+            btnGestionar.FlatStyle = FlatStyle.Standard;
+
+            if (dgvPersonas.Columns["Telefonos"] != null)
+            {
+                dgvPersonas.Columns.Remove(dgvPersonas.Columns["Telefonos"]);
+                dgvPersonas.Columns.Add(btnGestionar);
+            }
+
+            dgvPersonas.CellClick += DgvPersonas_CellClick;
+
+            EtiquetarDataGridView();
+
+        }
+
+        private void EtiquetarDataGridView()
+        {
+            foreach (DataGridViewRow row in this.dgvPersonas.Rows)
+            {
+                row.Tag = row.Cells[0].Value;
+            }
+        }
+
+        private void DgvPersonas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvPersonas.Columns["Telefonos"].Index)
+            {
+                MessageBox.Show("Toque el boton! :)");
+            }
+    }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -46,8 +90,8 @@ namespace EJ02_GUI
         {
                 this.iBinding.Clear();
                 this.iBinding.Add(iFachada.GetById(int.Parse(this.txtBuscar.Text)));
-                this.dgvPersonas.Refresh();
-            
+            EtiquetarDataGridView();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -72,11 +116,11 @@ namespace EJ02_GUI
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-                this.persona = iFachada.GetById((int)row.Cells[0].Value);
+                this.persona = this.iBinding.Single<Persona>(p => p.PersonaId == (int)row.Tag);
                 VentanaPersonas ventana = new VentanaPersonas();
                 ventana.ModificarPersona(persona);
-                DialogResult resultado = ventana.ShowDialog();
-                if (resultado == DialogResult.OK)
+                ventana.ShowDialog();
+                if (ventana.DialogResult == DialogResult.OK)
                 {
                     iFachada.Update(persona);
                 }
@@ -86,13 +130,21 @@ namespace EJ02_GUI
         private void btnTelefonos_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-                this.persona = iFachada.GetById((int)row.Cells[0].Value);
+            this.persona = this.iBinding.Single<Persona>(p => p.PersonaId == (int)row.Tag);
                 VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
-                this.DialogResult = ventana.ShowDialog();
-                if (this.DialogResult == DialogResult.OK)
+                ventana.ShowDialog();
+
+                if (ventana.DialogResult == DialogResult.OK)
                 {
                     iFachada.Update(persona);
                 }
         }
+
+        private void dgvPersonas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+       
     }
 }

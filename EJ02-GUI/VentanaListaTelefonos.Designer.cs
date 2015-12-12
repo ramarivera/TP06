@@ -1,4 +1,4 @@
-﻿namespace EJ02_GUI
+﻿namespace EJ02.UI
 {
     partial class VentanaListaTelefonos
     {
