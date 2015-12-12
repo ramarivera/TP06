@@ -13,7 +13,7 @@ using EJ02;
 namespace EJ02.UI
 {
     public partial class VentanaPrincipal : Form
-    { 
+    {
         CRUDPersonaFacade iFachada;
 
         BindingList<Persona> iBinding;
@@ -24,7 +24,7 @@ namespace EJ02.UI
         {
             InitializeComponent();
             this.iFachada = pFachada;
-            
+
         }
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
@@ -70,7 +70,7 @@ namespace EJ02.UI
             {
                 MessageBox.Show("Toque el boton! :)");
             }
-    }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -80,64 +80,64 @@ namespace EJ02.UI
             DialogResult resultado = ventana.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                    iFachada.Create(persona);
+                iFachada.Create(persona);
             }
-             
+
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-                this.iBinding.Clear();
-                this.iBinding.Add(iFachada.GetById(int.Parse(this.txtBuscar.Text)));
+            this.iBinding.Clear();
+            this.iBinding.Add(iFachada.GetById(int.Parse(this.txtBuscar.Text)));
             EtiquetarDataGridView();
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-                foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
+            foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
+            {
+                Persona persona = ((Persona)row.DataBoundItem);
+                DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar a " + persona.Nombre + " " + " " + persona.Apellido + "?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                switch (resultado)
                 {
-                    Persona persona = ((Persona)row.DataBoundItem);
-                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar a " + persona.Nombre + " " + " " + persona.Apellido + "?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    switch (resultado)
-                    {
-                        case DialogResult.Yes:
-                            this.iFachada.Delete(persona);
-                            this.iBinding.Remove(persona);
-                            break;
-                        case DialogResult.No:
-                            break;
-                    }
+                    case DialogResult.Yes:
+                        this.iFachada.Delete(persona);
+                        this.iBinding.Remove(persona);
+                        break;
+                    case DialogResult.No:
+                        break;
+                }
             }
-            
+
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
-                this.persona = this.iBinding.Single<Persona>(p => p.PersonaId == (int)row.Tag);
-                VentanaPersonas ventana = new VentanaPersonas();
-                ventana.ModificarPersona(persona);
-                ventana.ShowDialog();
-                if (ventana.DialogResult == DialogResult.OK)
-                {
-                    iFachada.Update(persona);
-                }
-            
+            this.persona = this.iBinding.Single<Persona>(p => p.PersonaId == (int)row.Tag);
+            VentanaPersonas ventana = new VentanaPersonas();
+            ventana.ModificarPersona(persona);
+            ventana.ShowDialog();
+            if (ventana.DialogResult == DialogResult.OK)
+            {
+                iFachada.Update(persona);
+            }
+
         }
 
         private void btnTelefonos_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
             this.persona = this.iBinding.Single<Persona>(p => p.PersonaId == (int)row.Tag);
-                VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
-                ventana.ShowDialog();
+            VentanaListaTelefonos ventana = new VentanaListaTelefonos(persona);
+            ventana.ShowDialog();
 
-                if (ventana.DialogResult == DialogResult.OK)
-                {
-                    iFachada.Update(persona);
-                }
+            if (ventana.DialogResult == DialogResult.OK)
+            {
+                iFachada.Update(persona);
+            }
         }
 
         private void dgvPersonas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -145,6 +145,6 @@ namespace EJ02.UI
 
         }
 
-       
+
     }
 }
