@@ -82,7 +82,7 @@ namespace EJ02.UI
             {
                 case DialogResult.Yes:
                     this.DialogResult = DialogResult.OK;
-                    this.persona.Telefonos = this.iBinding;
+                    this.persona.Telefonos = this.iBinding.ToList<Telefono>();
                     break;
                 case DialogResult.No:
                     this.DialogResult = DialogResult.Cancel;

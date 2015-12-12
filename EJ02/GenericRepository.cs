@@ -11,7 +11,7 @@ namespace EJ02
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
-        internal DbSet<TEntity> dbset;
+        //internal DbSet<TEntity> dbset;
         internal DbContext context;
 
 
@@ -22,7 +22,7 @@ namespace EJ02
             this.context = context;
             //DbSet<TEntity> set = context.Set<TEntity>();
             //this.dbset = context.Set(typeof(TEntity));
-            this.dbset = context.Set<TEntity>();
+            //this.dbset = context.Set<TEntity>();
             //this.dbset.Load();
         }
 
@@ -31,18 +31,18 @@ namespace EJ02
         {
             get
             {
-                return (IQueryable <TEntity>) this.dbset.AsQueryable();
+                return (IQueryable <TEntity>) this.context.Set<TEntity>().AsQueryable();
             }
         }
 
         public virtual TEntity GetByID(object id)
         {
-            return (TEntity) this.dbset.Find(id);
+            return (TEntity) this.context.Set<TEntity>().Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
-            dbset.Add(entity);
+            context.Set<TEntity>().Add(entity);
         }
 
         public virtual void Delete(object id)
@@ -55,9 +55,9 @@ namespace EJ02
         {
             if (context.Entry<TEntity>(entityToDelete).State == EntityState.Detached)
             {
-                dbset.Attach(entityToDelete);
+                context.Set<TEntity>().Attach(entityToDelete);
             }
-            dbset.Remove(entityToDelete);
+            context.Entry<TEntity>(entityToDelete).State = EntityState.Deleted;
         }
 
         public virtual void Update(TEntity entityToUpdate)

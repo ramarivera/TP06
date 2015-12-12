@@ -63,6 +63,7 @@
     <Compile Include="AgendaContext.cs" />
     <Compile Include="CRUDPersonaFacade.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="IEqualityComparer\TelefonoIdComparer.cs" />
     <Compile Include="Migrations\201512091237151_Initial.cs" />
     <Compile Include="Migrations\201512091237151_Initial.Designer.cs">
       <DependentUpon>201512091237151_Initial.cs</DependentUpon>
@@ -86,6 +87,10 @@
     <Compile Include="Migrations\201512100125521_DatabaseGeneratedOption.Identity.cs" />
     <Compile Include="Migrations\201512100125521_DatabaseGeneratedOption.Identity.Designer.cs">
       <DependentUpon>201512100125521_DatabaseGeneratedOption.Identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512122203480_IList to List Telefonos.cs" />
+    <Compile Include="Migrations\201512122203480_IList to List Telefonos.Designer.cs">
+      <DependentUpon>201512122203480_IList to List Telefonos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persona.cs" />
@@ -113,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512100125521_DatabaseGeneratedOption.Identity.resx">
       <DependentUpon>201512100125521_DatabaseGeneratedOption.Identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512122203480_IList to List Telefonos.resx">
+      <DependentUpon>201512122203480_IList to List Telefonos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
