@@ -17,8 +17,7 @@ namespace EJ02.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            VentanaPrincipal lVentana = IoCContainerLocator.Container.Resolve<VentanaPrincipal>();
-            Application.Run(lVentana);
+            Application.Run(new VentanaPrincipal());
         }
     }
 }

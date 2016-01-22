@@ -63,31 +63,6 @@
     <Compile Include="AgendaContext.cs" />
     <Compile Include="CRUDPersonaFacade.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="Migrations\201512091237151_Initial.cs" />
-    <Compile Include="Migrations\201512091237151_Initial.Designer.cs">
-      <DependentUpon>201512091237151_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512091238501_Migracion 01.cs" />
-    <Compile Include="Migrations\201512091238501_Migracion 01.Designer.cs">
-      <DependentUpon>201512091238501_Migracion 01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512091404217_Migracion 02.cs" />
-    <Compile Include="Migrations\201512091404217_Migracion 02.Designer.cs">
-      <DependentUpon>201512091404217_Migracion 02.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512091551126_Migracion 03.cs" />
-    <Compile Include="Migrations\201512091551126_Migracion 03.Designer.cs">
-      <DependentUpon>201512091551126_Migracion 03.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512100122106_DatabaseGeneratedOption.None.cs" />
-    <Compile Include="Migrations\201512100122106_DatabaseGeneratedOption.None.Designer.cs">
-      <DependentUpon>201512100122106_DatabaseGeneratedOption.None.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512100125521_DatabaseGeneratedOption.Identity.cs" />
-    <Compile Include="Migrations\201512100125521_DatabaseGeneratedOption.Identity.Designer.cs">
-      <DependentUpon>201512100125521_DatabaseGeneratedOption.Identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,23 +72,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512091238501_Migracion 01.resx">
-      <DependentUpon>201512091238501_Migracion 01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512091404217_Migracion 02.resx">
-      <DependentUpon>201512091404217_Migracion 02.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512091551126_Migracion 03.resx">
-      <DependentUpon>201512091551126_Migracion 03.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512100122106_DatabaseGeneratedOption.None.resx">
-      <DependentUpon>201512100122106_DatabaseGeneratedOption.None.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512100125521_DatabaseGeneratedOption.Identity.resx">
-      <DependentUpon>201512100125521_DatabaseGeneratedOption.Identity.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,38 +10,18 @@ namespace EJ02
 {
     public class AgendaContext : DbContext
     {
-        /*public SchoolDBContext(): base("SchoolDBConnectionString") 
-        {
-            Database.SetInitializer<SchoolDBContext>(new CreateDatabaseIfNotExists<SchoolDBContext>());
-
-            //Database.SetInitializer<SchoolDBContext>(new DropCreateDatabaseIfModelChanges<SchoolDBContext>());
-            //Database.SetInitializer<SchoolDBContext>(new DropCreateDatabaseAlways<SchoolDBContext>());
-            //Database.SetInitializer<SchoolDBContext>(new SchoolDBInitializer());
-        }*/
-
-
-
         public virtual DbSet<Persona> Personas { get; set; }
         public virtual DbSet<Telefono> Telefonos { get; set; }
 
         public AgendaContext() : base()
         {
-            //Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AgendaContext, Migrations.Configuration>());
-            //Console.WriteLine(this.Database.Connection.ConnectionString);
-            //
-
-            //this.Configuration.LazyLoadingEnabled = false;
-            //this.Configuration.ProxyCreationEnabled = false;
-            var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
-
+            Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
         }
 
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //
 
             modelBuilder.HasDefaultSchema("TDP");
             modelBuilder.Entity<Persona>().ToTable("Persona");

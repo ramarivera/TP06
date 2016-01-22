@@ -33,19 +33,19 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.pnlPrincipal = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlBotones = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlLinea3 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.pnlLinea2 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlLinea1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtId = new System.Windows.Forms.TextBox();
             this.lblId = new System.Windows.Forms.Label();
+            this.pnlBotones = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlLinea3 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlLinea2 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.lblNombre = new System.Windows.Forms.Label();
             this.pnlPrincipal.SuspendLayout();
+            this.pnlLinea1.SuspendLayout();
             this.pnlBotones.SuspendLayout();
             this.pnlLinea3.SuspendLayout();
             this.pnlLinea2.SuspendLayout();
-            this.pnlLinea1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblApellido
@@ -64,15 +64,15 @@
             this.txtApellido.Location = new System.Drawing.Point(73, 4);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(170, 20);
-            this.txtApellido.TabIndex = 3;
+            this.txtApellido.TabIndex = 0;
             // 
             // btnGuardar
             // 
             this.btnGuardar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnGuardar.Location = new System.Drawing.Point(29, 9);
+            this.btnGuardar.Location = new System.Drawing.Point(30, 9);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.TabIndex = 0;
             this.btnGuardar.Text = "Aceptar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -80,10 +80,10 @@
             // btnCancelar
             // 
             this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancelar.Location = new System.Drawing.Point(154, 9);
+            this.btnCancelar.Location = new System.Drawing.Point(155, 9);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -111,72 +111,6 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(270, 218);
             this.pnlPrincipal.TabIndex = 7;
             // 
-            // pnlBotones
-            // 
-            this.pnlBotones.ColumnCount = 5;
-            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
-            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
-            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.pnlBotones.Controls.Add(this.btnGuardar, 1, 0);
-            this.pnlBotones.Controls.Add(this.btnCancelar, 3, 0);
-            this.pnlBotones.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBotones.Location = new System.Drawing.Point(3, 173);
-            this.pnlBotones.Name = "pnlBotones";
-            this.pnlBotones.RowCount = 1;
-            this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlBotones.Size = new System.Drawing.Size(264, 42);
-            this.pnlBotones.TabIndex = 0;
-            // 
-            // pnlLinea3
-            // 
-            this.pnlLinea3.ColumnCount = 2;
-            this.pnlLinea3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.pnlLinea3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.pnlLinea3.Controls.Add(this.lblApellido, 0, 0);
-            this.pnlLinea3.Controls.Add(this.txtApellido, 1, 0);
-            this.pnlLinea3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLinea3.Location = new System.Drawing.Point(3, 118);
-            this.pnlLinea3.Name = "pnlLinea3";
-            this.pnlLinea3.RowCount = 1;
-            this.pnlLinea3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlLinea3.Size = new System.Drawing.Size(264, 29);
-            this.pnlLinea3.TabIndex = 9;
-            // 
-            // lblNombre
-            // 
-            this.lblNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(4, 8);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(44, 13);
-            this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Nombre";
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtNombre.Location = new System.Drawing.Point(73, 4);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(170, 20);
-            this.txtNombre.TabIndex = 1;
-            // 
-            // pnlLinea2
-            // 
-            this.pnlLinea2.ColumnCount = 2;
-            this.pnlLinea2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.pnlLinea2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.pnlLinea2.Controls.Add(this.txtNombre, 1, 0);
-            this.pnlLinea2.Controls.Add(this.lblNombre, 0, 0);
-            this.pnlLinea2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLinea2.Location = new System.Drawing.Point(3, 68);
-            this.pnlLinea2.Name = "pnlLinea2";
-            this.pnlLinea2.RowCount = 1;
-            this.pnlLinea2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlLinea2.Size = new System.Drawing.Size(264, 29);
-            this.pnlLinea2.TabIndex = 8;
-            // 
             // pnlLinea1
             // 
             this.pnlLinea1.ColumnCount = 2;
@@ -199,6 +133,7 @@
             this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(170, 20);
             this.txtId.TabIndex = 1;
+            this.txtId.TabStop = false;
             // 
             // lblId
             // 
@@ -209,6 +144,73 @@
             this.lblId.Size = new System.Drawing.Size(18, 13);
             this.lblId.TabIndex = 0;
             this.lblId.Text = "ID";
+            // 
+            // pnlBotones
+            // 
+            this.pnlBotones.ColumnCount = 5;
+            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.pnlBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.pnlBotones.Controls.Add(this.btnGuardar, 1, 0);
+            this.pnlBotones.Controls.Add(this.btnCancelar, 3, 0);
+            this.pnlBotones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBotones.Location = new System.Drawing.Point(3, 173);
+            this.pnlBotones.Name = "pnlBotones";
+            this.pnlBotones.RowCount = 1;
+            this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.pnlBotones.Size = new System.Drawing.Size(264, 42);
+            this.pnlBotones.TabIndex = 0;
+            // 
+            // pnlLinea3
+            // 
+            this.pnlLinea3.ColumnCount = 2;
+            this.pnlLinea3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.pnlLinea3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.pnlLinea3.Controls.Add(this.lblApellido, 0, 0);
+            this.pnlLinea3.Controls.Add(this.txtApellido, 1, 0);
+            this.pnlLinea3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLinea3.Location = new System.Drawing.Point(3, 118);
+            this.pnlLinea3.Name = "pnlLinea3";
+            this.pnlLinea3.RowCount = 1;
+            this.pnlLinea3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnlLinea3.Size = new System.Drawing.Size(264, 29);
+            this.pnlLinea3.TabIndex = 9;
+            // 
+            // pnlLinea2
+            // 
+            this.pnlLinea2.ColumnCount = 2;
+            this.pnlLinea2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.pnlLinea2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.pnlLinea2.Controls.Add(this.txtNombre, 1, 0);
+            this.pnlLinea2.Controls.Add(this.lblNombre, 0, 0);
+            this.pnlLinea2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLinea2.Location = new System.Drawing.Point(3, 68);
+            this.pnlLinea2.Name = "pnlLinea2";
+            this.pnlLinea2.RowCount = 1;
+            this.pnlLinea2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnlLinea2.Size = new System.Drawing.Size(264, 29);
+            this.pnlLinea2.TabIndex = 0;
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtNombre.Location = new System.Drawing.Point(73, 4);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(170, 20);
+            this.txtNombre.TabIndex = 0;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(4, 8);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(44, 13);
+            this.lblNombre.TabIndex = 0;
+            this.lblNombre.Text = "Nombre";
             // 
             // VentanaPersonas
             // 
@@ -222,13 +224,13 @@
             this.Name = "VentanaPersonas";
             this.Text = "Agregar/Modificar Persona";
             this.pnlPrincipal.ResumeLayout(false);
+            this.pnlLinea1.ResumeLayout(false);
+            this.pnlLinea1.PerformLayout();
             this.pnlBotones.ResumeLayout(false);
             this.pnlLinea3.ResumeLayout(false);
             this.pnlLinea3.PerformLayout();
             this.pnlLinea2.ResumeLayout(false);
             this.pnlLinea2.PerformLayout();
-            this.pnlLinea1.ResumeLayout(false);
-            this.pnlLinea1.PerformLayout();
             this.ResumeLayout(false);
 
         }

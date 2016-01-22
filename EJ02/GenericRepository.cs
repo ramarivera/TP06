@@ -11,60 +11,52 @@ namespace EJ02
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
-        internal DbSet<TEntity> dbset;
-        internal DbContext context;
+        internal AgendaContext context;
+        internal DbSet<TEntity> dbSet;
 
-
-        public GenericRepository() { }
-
-        public GenericRepository(DbContext context)
+        public GenericRepository(AgendaContext context)
         {
             this.context = context;
-            //DbSet<TEntity> set = context.Set<TEntity>();
-            //this.dbset = context.Set(typeof(TEntity));
-            this.dbset = context.Set<TEntity>();
-            //this.dbset.Load();
+            this.dbSet = context.Set<TEntity>();
         }
 
-
-        public virtual IQueryable<TEntity> Queryable
+        public IQueryable<TEntity> Queryable
         {
             get
             {
-                return (IQueryable <TEntity>) this.dbset.AsQueryable();
+                return dbSet;
             }
         }
 
         public virtual TEntity GetByID(object id)
         {
-            return (TEntity) this.dbset.Find(id);
+            return dbSet.Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
-            dbset.Add(entity);
+            dbSet.Add(entity);
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = this.GetByID(id);
+            TEntity entityToDelete = dbSet.Find(id);
             Delete(entityToDelete);
         }
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (context.Entry<TEntity>(entityToDelete).State == EntityState.Detached)
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                dbset.Attach(entityToDelete);
+                dbSet.Attach(entityToDelete);
             }
-            dbset.Remove(entityToDelete);
+            dbSet.Remove(entityToDelete);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            //this.dbset.Add(entityToUpdate);
-
-            context.Entry<TEntity>(entityToUpdate).State = EntityState.Modified;
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

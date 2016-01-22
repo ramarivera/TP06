@@ -26,6 +26,12 @@ namespace EJ02.UI
             this.iFachada = pFachada;
 
         }
+        public VentanaPrincipal()
+        {
+            InitializeComponent();
+            this.iFachada = new CRUDPersonaFacade();
+        }
+
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             this.iBinding = this.iFachada.GetAll().ToBindingList();

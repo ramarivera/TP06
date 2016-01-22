@@ -31,11 +31,9 @@ namespace EJ02
       
         static void AgregarTest()
         {
-            UnitOfWork uow;
             CRUDPersonaFacade fachada;
 
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            fachada = new CRUDPersonaFacade();
 
             Persona mPersona = new Persona
             {
@@ -50,29 +48,10 @@ namespace EJ02
             mPersona.Telefonos.Add(mTelefono1);
             mPersona.Telefonos.Add(mTelefono2);
 
-            using (uow)
-            {
                 fachada.Create(mPersona);
-
-            }
 
             Console.WriteLine("Agregada");
             Console.ReadKey();
-            /*
-                        Persona pers = fachada.GetById(1);
-                        try
-                        {
-                            Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, pers.Telefonos == null ? "null" : pers.Telefonos.Count.ToString());
-                        }
-                        catch (System.ObjectDisposedException)
-                        {
-                            Console.WriteLine("Get by id Nombre: {0}, Cantidad de Telefonos: {1}", pers.Nombre, "Context Disposed");
-                        }
-
-                        Console.ReadKey();
-
-                       MostrarTodosTest(fachada);*/
-
         }
 
         static void MostrarPersona(Persona pPersona)
@@ -107,11 +86,9 @@ namespace EJ02
 
         static void ActualizarTest()
         {
-            UnitOfWork uow;
             CRUDPersonaFacade fachada;
 
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            fachada = new CRUDPersonaFacade();
 
             Persona mPersona = new Persona
             {
@@ -121,8 +98,6 @@ namespace EJ02
                 Telefonos = new List<Telefono>() 
             };
 
-            using (uow)
-            {
                 mPersona = fachada.GetAll()[5];
                 string temp = DateTime.Today.ToString();
                 mPersona.Nombre = mPersona.Nombre + temp;
@@ -137,13 +112,7 @@ namespace EJ02
 
                 mPersona.Telefonos[0].Tipo = mPersona.Telefonos[0].Tipo + " Celular";
 
-                //mPersona.Telefonos.RemoveAt(1);
-            }
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
-
-            using (uow)
-            {
+            fachada = new CRUDPersonaFacade();
 
                 fachada.Update(mPersona);
 
@@ -155,16 +124,13 @@ namespace EJ02
                 Console.ReadKey();
 
                 MostrarTodosTest(fachada);
-            }
         }
 
         private static void AgregarActualizarPersonaSola()
         {
-            UnitOfWork uow;
             CRUDPersonaFacade fachada;
 
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            fachada = new CRUDPersonaFacade();
 
             Persona mPersona = new Persona
             {
@@ -197,16 +163,12 @@ namespace EJ02
 
         private static void EliminarTest()
         {
-            UnitOfWork uow;
             CRUDPersonaFacade fachada;
 
-            uow = new UnitOfWork();
-            fachada = new CRUDPersonaFacade(uow);
+            fachada = new CRUDPersonaFacade();
 
             Persona mPersona;
 
-            using (uow)
-            {
                 mPersona = fachada.GetAll().First<Persona>();
 
                 Console.WriteLine("Se Eliminara la primer persona, con nombre: '{0}' y ID: {1}", mPersona.Nombre, mPersona.PersonaId);
@@ -216,7 +178,6 @@ namespace EJ02
 
                 Console.WriteLine("Eliminada");
                 Console.ReadKey();
-            }
 
         }
 
@@ -240,19 +201,6 @@ namespace EJ02
 
 
         }
-
-        /* Persona mPersona2;
-           using (AgendaContext ctx = new AgendaContext())
-           {
-               mPersona2 = ctx.Set<Persona>().Find(2);
-              // mPersona2.Nombre = "Hola";
-           }
-
-           using (AgendaContext ctx = new AgendaContext())
-           {
-               ctx.Entry(mPersona2).State = EntityState.Modified;
-               ctx.SaveChanges();
-           }*/
 
 
         static void UpdateSinRepo()
