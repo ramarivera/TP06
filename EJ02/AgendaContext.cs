@@ -28,10 +28,10 @@ namespace EJ02
             modelBuilder.Entity<Telefono>().ToTable("Telefono");
 
             modelBuilder.Entity<Persona>()
-                        .HasMany<Telefono>(p => p.Telefonos)
-                        .WithRequired()
+                        .HasMany<Telefono>(p => p.Telefonos);
+                      /*  .WithRequired()
                         .Map(a => a.MapKey("Persona"))
-                        .WillCascadeOnDelete(true);
+                        .WillCascadeOnDelete(true);*/
 
 
             modelBuilder.Entity<Persona>().HasKey<int>(p => p.PersonaId);
