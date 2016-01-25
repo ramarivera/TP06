@@ -123,6 +123,7 @@
             this.dgvPersonas.TabIndex = 0;
             this.dgvPersonas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPersonas_CellContentClick);
             this.dgvPersonas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+       //     this.dgvPersonas.Leave += new System.EventHandler(this.dgvPersonas_Leave);
             // 
             // pnlBotones
             // 
