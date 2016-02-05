@@ -12,6 +12,9 @@ using EJ02;
 
 namespace EJ02.UI
 {
+    /// <summary>
+    /// Ventana utilizada para la gestion de personas de la agenda telefónica
+    /// </summary>
     public partial class VentanaPersonas : Form
     {
         private Persona iPersonaOriginal;
@@ -21,11 +24,18 @@ namespace EJ02.UI
             get { return this.iPersonaOriginal; }
         }
 
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
         public VentanaPersonas()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Permite cargar los datos de una nueva persona
+        /// </summary>
+        /// <param name="pPersonaNueva">Nueva entidad</param>
         public void AgregarPersona(Persona pPersonaNueva)
         {
             this.txtId.Text = "--- Sin ID ---";
@@ -35,6 +45,10 @@ namespace EJ02.UI
             this.iPersonaOriginal = pPersonaNueva;
         }
 
+        /// <summary>
+        /// Permite modificar los datos de una persona existente
+        /// </summary>
+        /// <param name="pPersona">Entidad a modificar</param>
         public void ModificarPersona(Persona pPersona)
         {
             this.txtId.Text = pPersona.PersonaId.ToString();
@@ -44,7 +58,11 @@ namespace EJ02.UI
             this.iPersonaOriginal = pPersona;
         }
 
-
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Aceptar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             this.iPersonaOriginal.Nombre = this.txtNombre.Text;
@@ -53,6 +71,11 @@ namespace EJ02.UI
             this.Close();
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Cancelar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult opcion = MessageBox.Show(

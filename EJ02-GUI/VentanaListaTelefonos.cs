@@ -11,12 +11,22 @@ using EJ02;
 
 namespace EJ02.UI
 {
+    /// <summary>
+    /// Ventana que muestra los teléfonos de una persona de la agenda telefónica
+    /// </summary>
     public partial class VentanaListaTelefonos: Form
     {
         Persona persona;
 
+        /// <summary>
+        /// Fuente de datos del control dataGridView de la forma
+        /// </summary>
         BindingList<Telefono> iBinding;
 
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
+        /// <param name="pPersona">Persona a la cual le pertenecen los teléfonos mostrados</param>
         public VentanaListaTelefonos(Persona pPersona)
         {
             InitializeComponent();
@@ -25,6 +35,11 @@ namespace EJ02.UI
             this.dgvTelefonos.DataSource = this.iBinding;
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Agregar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             Telefono lTelefono = new Telefono();
@@ -37,6 +52,11 @@ namespace EJ02.UI
             }
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Eliminar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in this.dgvTelefonos.SelectedRows)
@@ -55,6 +75,11 @@ namespace EJ02.UI
             }
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al hacer doble click en una fila del control dataGridView 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvTelefonos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvTelefonos.CurrentRow;
@@ -76,6 +101,11 @@ namespace EJ02.UI
            // }
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al hacer click en el botón cerrar de la forma 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VentanaListaTelefonos_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Desea guardar los cambios antes de salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

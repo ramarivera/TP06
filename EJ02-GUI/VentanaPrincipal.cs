@@ -12,10 +12,16 @@ using EJ02;
 
 namespace EJ02.UI
 {
+    /// <summary>
+    /// Ventana principal de la aplicacion, que muestra las personas cargadas en la agenda
+    /// </summary>
     public partial class VentanaPrincipal : Form
     {
         CRUDPersonaFacade iFachada;
 
+        /// <summary>
+        /// Fuente de datos del control dataGridView de la forma
+        /// </summary>
         BindingList<Persona> iBinding;
 
         Persona persona;
@@ -26,18 +32,30 @@ namespace EJ02.UI
             this.iFachada = pFachada;
 
         }
+
+        /// <summary>
+        /// Inicializar de la forma
+        /// </summary>
         public VentanaPrincipal()
         {
             InitializeComponent();
             this.iFachada = new CRUDPersonaFacade();
         }
 
+        /// <summary>
+        /// Representa lo que ocurre cuando ocurre el evento Load de la forma
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             this.RefreshBinding();
             this.dgvPersonas.Enter += dgvPersonas_Leave;
         }
 
+        /// <summary>
+        /// Reasigna el contenido del control dataGridView de la forma
+        /// </summary>
         private void Rebind()
         {
             this.dgvPersonas.DataSource = null;
@@ -45,6 +63,9 @@ namespace EJ02.UI
             this.dgvPersonas.DataSource = this.iBinding;
         }
 
+        /// <summary>
+        /// Inicializa el control dataGridView del control
+        /// </summary>
         private void InicializarDataGridView()
         {
             this.Rebind();
@@ -77,6 +98,9 @@ namespace EJ02.UI
 
         }
 
+        /// <summary>
+        /// Asigna a la etiqueta de cada fila del control dataGridView el valor de la primera celda de dicha fila
+        /// </summary>
         private void EtiquetarDataGridView()
         {
             foreach (DataGridViewRow row in this.dgvPersonas.Rows)
@@ -85,6 +109,11 @@ namespace EJ02.UI
             }
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Agregar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             persona = new Persona();
@@ -98,6 +127,11 @@ namespace EJ02.UI
             }
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Buscar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
             this.iBinding.Clear();
@@ -106,6 +140,11 @@ namespace EJ02.UI
 
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Eliminar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in this.dgvPersonas.SelectedRows)
@@ -122,9 +161,13 @@ namespace EJ02.UI
                         break;
                 }
             }
-
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al hacer doble click en una fila del control dataGridView 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
@@ -136,9 +179,13 @@ namespace EJ02.UI
             {
                 iFachada.Update(persona);
             }
-
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Gestionar Tel.)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnTelefonos_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dgvPersonas.CurrentRow;
@@ -152,11 +199,19 @@ namespace EJ02.UI
             }
         }
 
+        /// <summary>
+        /// Asigna el contenido a la fuente de datos <see cref="iBinding"/>
+        /// </summary>
         private void RefreshBinding()
         {
             this.iBinding = this.iFachada.GetAll().ToBindingList<Persona>();       
         }
 
+        /// <summary>
+        /// Representa lo que ocurre cuando ocurre el evento Leave de la forma
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvPersonas_Leave(object sender, EventArgs e)
         {
             this.InicializarDataGridView();

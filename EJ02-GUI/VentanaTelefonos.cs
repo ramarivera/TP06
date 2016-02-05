@@ -11,6 +11,9 @@ using EJ02;
 
 namespace EJ02.UI
 {
+    /// <summary>
+    /// Ventana utilizada para la gestion de teléfonos de personas de la agenda telefónica
+    /// </summary>
     public partial class VentanaTelefonos : Form
     {
         private Telefono iTelefonoOriginal;
@@ -20,11 +23,18 @@ namespace EJ02.UI
             get { return this.iTelefonoOriginal; }
         }
 
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
         public VentanaTelefonos()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Permite cargar los datos de un nuevo teléfono de una persona
+        /// </summary>
+        /// <param name="pTelefonoNuevo">Nueva entidad</param>
         public void AgregarTelefono(Telefono pTelefonoNuevo)
         {
             this.txtId.Text = "--- Sin ID ---";
@@ -34,6 +44,10 @@ namespace EJ02.UI
             this.iTelefonoOriginal = pTelefonoNuevo;
         }
 
+        /// <summary>
+        /// Permite modificar los datos de un teléfono existente de una persona
+        /// </summary>
+        /// <param name="pTelefono">Entidad a modificar</param>
         public void ModificarTelefono(Telefono pTelefono)
         {
             this.txtId.Text = pTelefono.TelefonoId.ToString();
@@ -43,6 +57,12 @@ namespace EJ02.UI
             this.iTelefonoOriginal = pTelefono;
         }
 
+
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Aceptar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             iTelefonoOriginal.Numero = this.txtNumero.Text;
@@ -51,6 +71,11 @@ namespace EJ02.UI
             this.Close();
         }
 
+        /// <summary>
+        /// Reprenseta lo que ocurre al presionar el control button correspondiente (Cancelar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult opcion = MessageBox.Show(
