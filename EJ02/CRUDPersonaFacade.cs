@@ -20,12 +20,8 @@ namespace EJ02
         /// <param name="pPersona">Persona a agregar</param>
         public void Create(Persona pPersona)
         {
-            using (this.iUnitOfWork = new UnitOfWork())
-            {
-                iUnitOfWork.PersonaRepository.Insert(pPersona);
-                iUnitOfWork.Save();
-            }
-
+            iUnitOfWork.PersonaRepository.Insert(pPersona);
+            iUnitOfWork.Save();
         }
 
         /// <summary>
@@ -34,12 +30,8 @@ namespace EJ02
         /// <param name="pPersona">Persona a modificar</param>
         public void Update(Persona pPersona)
         {
-            using (this.iUnitOfWork = new UnitOfWork())
-            {
-                iUnitOfWork.PersonaRepository.Update(pPersona);
-                iUnitOfWork.Save();
-            }
-
+            iUnitOfWork.PersonaRepository.Update(pPersona);
+            iUnitOfWork.Save();
         }
 
         /// <summary>
@@ -48,13 +40,9 @@ namespace EJ02
         /// <param name="pPersona">Persona a eliminar</param>
         public void Delete(Persona pPersona)
         {
-            using (this.iUnitOfWork = new UnitOfWork())
-            {
-                Persona mPersona = iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);
-                iUnitOfWork.PersonaRepository.Delete(mPersona);
-                iUnitOfWork.Save();
-            }
-
+            Persona mPersona = iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);
+            iUnitOfWork.PersonaRepository.Delete(mPersona);
+            iUnitOfWork.Save();
         }
 
         /// <summary>
@@ -64,11 +52,8 @@ namespace EJ02
         public List<Persona> GetAll()
         {
             List<Persona> lResultado = new List<Persona>();
-            using (this.iUnitOfWork = new UnitOfWork())
-            {
-                var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos);
-                lResultado = query.ToList<Persona>();
-            }
+            var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos);
+            lResultado = query.ToList<Persona>();
             return lResultado;
         }
 
@@ -80,15 +65,11 @@ namespace EJ02
         public Persona GetById(int pPersonaId)
         {
             Persona lResultado;
+            var query = (from persona in this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)//;.AsNoTracking()
+                        where persona.PersonaId == pPersonaId
+                        select persona);
 
-            using (this.iUnitOfWork = new UnitOfWork())
-            {
-                var query = (from persona in this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)//;.AsNoTracking()
-                             where persona.PersonaId == pPersonaId
-                             select persona);
-
-                lResultado = query.FirstOrDefault<Persona>();
-            }
+            lResultado = query.FirstOrDefault<Persona>();
             return lResultado;
 
         }
