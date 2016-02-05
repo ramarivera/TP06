@@ -103,6 +103,7 @@ namespace EJ02.UI
             if (resultado == DialogResult.OK)
             {
                 iFachada.Create(persona);
+                iBinding.Add(persona);
             }
 
 

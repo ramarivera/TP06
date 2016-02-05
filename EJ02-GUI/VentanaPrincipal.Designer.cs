@@ -114,6 +114,7 @@
             this.dgvPersonas.AllowUserToAddRows = false;
             this.dgvPersonas.AllowUserToDeleteRows = false;
             this.dgvPersonas.AllowUserToResizeRows = false;
+            this.dgvPersonas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPersonas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPersonas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPersonas.Location = new System.Drawing.Point(3, 65);
@@ -123,7 +124,6 @@
             this.dgvPersonas.TabIndex = 0;
             this.dgvPersonas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPersonas_CellContentClick);
             this.dgvPersonas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-       //     this.dgvPersonas.Leave += new System.EventHandler(this.dgvPersonas_Leave);
             // 
             // pnlBotones
             // 

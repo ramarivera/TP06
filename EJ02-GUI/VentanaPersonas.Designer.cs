@@ -160,7 +160,7 @@
             this.pnlBotones.Name = "pnlBotones";
             this.pnlBotones.RowCount = 1;
             this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.pnlBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this.pnlBotones.Size = new System.Drawing.Size(264, 42);
             this.pnlBotones.TabIndex = 0;
             // 
