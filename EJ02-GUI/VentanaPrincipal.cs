@@ -140,16 +140,24 @@ namespace EJ02.UI
             }
             else
             {
-                Persona lResult = iFachada.GetById(int.Parse(this.txtBuscar.Text));
-                if (lResult == null)
+                int lID;
+                if(int.TryParse(this.txtBuscar.Text, out lID))
                 {
-                    MessageBox.Show("No se encontró una persona para el ID ingresado", "Persona Inexistente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Persona lResult = iFachada.GetById(lID);
+                    if (lResult == null)
+                    {
+                        MessageBox.Show("No se encontró una persona para el ID ingresado", "Persona Inexistente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        this.iBinding.Clear();
+                        this.iBinding.Add(lResult);
+                        EtiquetarDataGridView();
+                    }
                 }
                 else
                 {
-                    this.iBinding.Clear();
-                    this.iBinding.Add(lResult);
-                    EtiquetarDataGridView();
+                    MessageBox.Show("El formato del ID es inválido", "ID inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
