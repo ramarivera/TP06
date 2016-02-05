@@ -12,32 +12,50 @@ using EJ02;
 
 namespace EJ02.UI
 {
+    /// <summary>
+    /// Ventana principal de la aplicacion, que muestra las personas cargadas en la agenda
+    /// </summary>
     public partial class VentanaPrincipal : Form
     {
         CRUDPersonaFacade iFachada;
 
+        /// <summary>
+        /// Fuente de datos del control dataGridView de la forma
+        /// </summary>
         BindingList<Persona> iBinding;
 
         Persona persona;
-
+        /*
         public VentanaPrincipal(CRUDPersonaFacade pFachada)
         {
             InitializeComponent();
             this.iFachada = pFachada;
 
-        }
+        }*/
+
+        /// <summary>
+        /// Inicializar de la forma
+        /// </summary>
         public VentanaPrincipal()
         {
             InitializeComponent();
             this.iFachada = new CRUDPersonaFacade();
         }
 
+        /// <summary>
+        /// Representa lo que ocurre cuando ocurre el evento Load de la forma
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             this.RefreshBinding();
             this.dgvPersonas.Enter += dgvPersonas_Leave;
         }
 
+        /// <summary>
+        /// Reasigna el contenido del control dataGridView de la forma
+        /// </summary>
         private void Rebind()
         {
             this.dgvPersonas.DataSource = null;
@@ -45,6 +63,9 @@ namespace EJ02.UI
             this.dgvPersonas.DataSource = this.iBinding;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InicializarDataGridView()
         {
             this.Rebind();
@@ -168,7 +189,9 @@ namespace EJ02.UI
 
         }
 
-
+        /// <summary>
+        /// Asigna el contenido a la fuente de datos <see cref="iBinding"/>
+        /// </summary>
         private void RefreshBinding()
         {
             this.iBinding = this.iFachada.GetAll().ToBindingList<Persona>();       

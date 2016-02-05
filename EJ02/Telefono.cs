@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace EJ02
 {
+    /// <summary>
+    /// Representa el teléfono de una persona de la agenda telefónica
+    /// </summary>
     public class Telefono
     {
         public int TelefonoId { get; set; }

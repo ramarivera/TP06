@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace EJ02
 {
+    /// <summary>
+    /// Clase Facade del ejercicio 2 TP6, abstrae implementaciones del modelo
+    /// </summary>
     public class CRUDPersonaFacade
     {
         private UnitOfWork iUnitOfWork = new UnitOfWork();
 
+        /// <summary>
+        /// Agregar una <see cref="Persona"/> al repositorio correspondiente y guarda los cambios
+        /// </summary>
+        /// <param name="pPersona">Persona a agregar</param>
         public void Create(Persona pPersona)
         {
             using (this.iUnitOfWork = new UnitOfWork())
@@ -21,6 +28,10 @@ namespace EJ02
 
         }
 
+        /// <summary>
+        /// Modifica una <see cref="Persona"/> existente en el repositorio y guarda los cambios
+        /// </summary>
+        /// <param name="pPersona">Persona a modificar</param>
         public void Update(Persona pPersona)
         {
             using (this.iUnitOfWork = new UnitOfWork())
@@ -31,6 +42,10 @@ namespace EJ02
 
         }
 
+        /// <summary>
+        /// Elimina una <see cref="Persona"/> existente en el repositorio y guarda los cambios
+        /// </summary>
+        /// <param name="pPersona">Persona a eliminar</param>
         public void Delete(Persona pPersona)
         {
             using (this.iUnitOfWork = new UnitOfWork())
@@ -42,6 +57,10 @@ namespace EJ02
 
         }
 
+        /// <summary>
+        /// Obtiene todas las <see cref="Persona"/> almacenadas en el repositorio
+        /// </summary>
+        /// <returns>Lista de las <see cref="Personas"/> en el repositorio</returns>
         public List<Persona> GetAll()
         {
             List<Persona> lResultado = new List<Persona>();
@@ -51,9 +70,13 @@ namespace EJ02
                 lResultado = query.ToList<Persona>();
             }
             return lResultado;
-
         }
 
+        /// <summary>
+        /// Obtiene la <see cref="Persona"/> que se corresponda con el id especificado
+        /// </summary>
+        /// <param name="pPersonaId">id de la <see cref="Persona"/> a obtener</param>
+        /// <returns><see cref="Persona"/> que se corresponde con el id indicado</returns>
         public Persona GetById(int pPersonaId)
         {
             Persona lResultado;
@@ -69,7 +92,5 @@ namespace EJ02
             return lResultado;
 
         }
-
-
     }
 }

@@ -8,6 +8,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EJ02
 {
+    /// <summary>
+    /// Representa el contenedor de la entidad definido en el modelo conceptual, la asociacion de los objetos y el uso de las relaciones, en este caso, para una simple agenda telefónica
+    /// </summary>
     public class AgendaContext : DbContext
     {
         public virtual DbSet<Persona> Personas { get; set; }
@@ -18,8 +21,10 @@ namespace EJ02
             Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
         }
 
-
-
+        /// <summary>
+        /// Define configuracion del modelo una vez que este fue inicializado, pero antes de ver bloqueado para inicializar el contexto
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
