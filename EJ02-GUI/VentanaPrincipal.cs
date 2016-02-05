@@ -48,23 +48,22 @@ namespace EJ02.UI
         private void InicializarDataGridView()
         {
             this.Rebind();
-            if (dgvPersonas.SelectedRows.Count == 0)
-            {
 
-            }
             this.dgvPersonas.ReadOnly = true;
             this.dgvPersonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            DataGridViewButtonColumn btnGestionar = new DataGridViewButtonColumn();
-            btnGestionar.Name = "Teléfonos";
-            btnGestionar.Text = "Gestionar" + DateTime.Now.Second.ToString();
-            btnGestionar.UseColumnTextForButtonValue = true;
-            btnGestionar.FlatStyle = FlatStyle.Standard;
 
             if (dgvPersonas.Columns["Teléfonos"] != null)
             {
                 dgvPersonas.Columns.Remove(dgvPersonas.Columns["Teléfonos"]);
             }
+
+
+            /*DataGridViewButtonColumn btnGestionar = new DataGridViewButtonColumn();
+            btnGestionar.Name = "Teléfonos";
+            btnGestionar.Text = "Gestionar" + DateTime.Now.Second.ToString();
+            btnGestionar.UseColumnTextForButtonValue = true;
+            btnGestionar.FlatStyle = FlatStyle.Standard;
 
             if (dgvPersonas.Columns["Telefonos"] != null)
             {
@@ -72,7 +71,7 @@ namespace EJ02.UI
                 dgvPersonas.Columns.Add(btnGestionar);
             }
 
-            dgvPersonas.CellClick += DgvPersonas_CellClick;
+            dgvPersonas.CellClick += DgvPersonas_CellClick; */
 
             EtiquetarDataGridView();
 
@@ -83,14 +82,6 @@ namespace EJ02.UI
             foreach (DataGridViewRow row in this.dgvPersonas.Rows)
             {
                 row.Tag = row.Cells[0].Value;
-            }
-        }
-
-        private void DgvPersonas_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dgvPersonas.Columns["Teléfonos"].Index)
-            {
-                MessageBox.Show("Toque el boton! :)");
             }
         }
 
@@ -105,8 +96,6 @@ namespace EJ02.UI
                 iFachada.Create(persona);
                 iBinding.Add(persona);
             }
-
-
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -163,17 +152,10 @@ namespace EJ02.UI
             }
         }
 
-        private void dgvPersonas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
         private void RefreshBinding()
         {
             this.iBinding = this.iFachada.GetAll().ToBindingList<Persona>();       
         }
-
 
         private void dgvPersonas_Leave(object sender, EventArgs e)
         {
@@ -181,3 +163,4 @@ namespace EJ02.UI
         }
     }
 }
+ 
