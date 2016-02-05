@@ -34,21 +34,37 @@ namespace EJ02.UI
 
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
-            this.iBinding = this.iFachada.GetAll().ToBindingList();
-            InicializarDataGridView();
+            this.RefreshBinding();
+            this.dgvPersonas.Enter += dgvPersonas_Leave;
+        }
+
+        private void Rebind()
+        {
+            this.dgvPersonas.DataSource = null;
+            this.RefreshBinding();
+            this.dgvPersonas.DataSource = this.iBinding;
         }
 
         private void InicializarDataGridView()
         {
-            this.dgvPersonas.DataSource = this.iBinding;
+            this.Rebind();
+            if (dgvPersonas.SelectedRows.Count == 0)
+            {
+
+            }
             this.dgvPersonas.ReadOnly = true;
             this.dgvPersonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             DataGridViewButtonColumn btnGestionar = new DataGridViewButtonColumn();
-            btnGestionar.Name = "Telefonos";
-            btnGestionar.Text = "Gestionar";
+            btnGestionar.Name = "Teléfonos";
+            btnGestionar.Text = "Gestionar" + DateTime.Now.Second.ToString();
             btnGestionar.UseColumnTextForButtonValue = true;
             btnGestionar.FlatStyle = FlatStyle.Standard;
+
+            if (dgvPersonas.Columns["Teléfonos"] != null)
+            {
+                dgvPersonas.Columns.Remove(dgvPersonas.Columns["Teléfonos"]);
+            }
 
             if (dgvPersonas.Columns["Telefonos"] != null)
             {
@@ -72,7 +88,7 @@ namespace EJ02.UI
 
         private void DgvPersonas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dgvPersonas.Columns["Telefonos"].Index)
+            if (e.ColumnIndex == dgvPersonas.Columns["Teléfonos"].Index)
             {
                 MessageBox.Show("Toque el boton! :)");
             }
@@ -152,5 +168,15 @@ namespace EJ02.UI
         }
 
 
+        private void RefreshBinding()
+        {
+            this.iBinding = this.iFachada.GetAll().ToBindingList<Persona>();       
+        }
+
+
+        private void dgvPersonas_Leave(object sender, EventArgs e)
+        {
+            this.InicializarDataGridView();
+        }
     }
 }
