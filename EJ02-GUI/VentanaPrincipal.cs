@@ -134,9 +134,24 @@ namespace EJ02.UI
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            this.iBinding.Clear();
-            this.iBinding.Add(iFachada.GetById(int.Parse(this.txtBuscar.Text)));
-            EtiquetarDataGridView();
+            if (String.IsNullOrWhiteSpace(this.txtBuscar.Text))
+            {
+                MessageBox.Show("Ingrese un ID para buscar", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                Persona lResult = iFachada.GetById(int.Parse(this.txtBuscar.Text));
+                if (lResult == null)
+                {
+                    MessageBox.Show("No se encontró una persona para el ID ingresado", "Persona Inexistente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    this.iBinding.Clear();
+                    this.iBinding.Add(lResult);
+                    EtiquetarDataGridView();
+                }
+            }
 
         }
 
