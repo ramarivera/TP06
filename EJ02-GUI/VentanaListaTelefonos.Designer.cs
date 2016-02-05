@@ -48,6 +48,7 @@
             this.dgvTelefonos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTelefonos.Location = new System.Drawing.Point(3, 3);
             this.dgvTelefonos.Name = "dgvTelefonos";
+            this.dgvTelefonos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTelefonos.Size = new System.Drawing.Size(304, 172);
             this.dgvTelefonos.TabIndex = 0;
             this.dgvTelefonos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTelefonos_CellContentDoubleClick);

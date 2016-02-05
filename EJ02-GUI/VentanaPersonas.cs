@@ -56,7 +56,7 @@ namespace EJ02.UI
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult opcion = MessageBox.Show(
-                                        "¿Desea salir sin guardar los cambios",
+                                        "¿Desea salir sin guardar los cambios?",
                                         "Salir",
                                         MessageBoxButtons.YesNo,
                                         MessageBoxIcon.Question);

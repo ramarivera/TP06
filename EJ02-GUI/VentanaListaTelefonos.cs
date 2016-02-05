@@ -63,6 +63,7 @@ namespace EJ02.UI
             //using (this.uow)
             //{
             telefono = this.iBinding.SingleOrDefault<Telefono>(t => t.TelefonoId == ((int)row.Cells[0].Value));  
+            // TODO problema al querer editar un telefono sin haber guardado
                 
                 VentanaTelefonos ventana = new VentanaTelefonos();
                 ventana.ModificarTelefono(telefono);
