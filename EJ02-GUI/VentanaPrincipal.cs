@@ -12,50 +12,32 @@ using EJ02;
 
 namespace EJ02.UI
 {
-    /// <summary>
-    /// Ventana principal de la aplicacion, que muestra las personas cargadas en la agenda
-    /// </summary>
     public partial class VentanaPrincipal : Form
     {
         CRUDPersonaFacade iFachada;
 
-        /// <summary>
-        /// Fuente de datos del control dataGridView de la forma
-        /// </summary>
         BindingList<Persona> iBinding;
 
         Persona persona;
-        /*
+
         public VentanaPrincipal(CRUDPersonaFacade pFachada)
         {
             InitializeComponent();
             this.iFachada = pFachada;
 
-        }*/
-
-        /// <summary>
-        /// Inicializar de la forma
-        /// </summary>
+        }
         public VentanaPrincipal()
         {
             InitializeComponent();
             this.iFachada = new CRUDPersonaFacade();
         }
 
-        /// <summary>
-        /// Representa lo que ocurre cuando ocurre el evento Load de la forma
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {
             this.RefreshBinding();
             this.dgvPersonas.Enter += dgvPersonas_Leave;
         }
 
-        /// <summary>
-        /// Reasigna el contenido del control dataGridView de la forma
-        /// </summary>
         private void Rebind()
         {
             this.dgvPersonas.DataSource = null;
@@ -63,29 +45,25 @@ namespace EJ02.UI
             this.dgvPersonas.DataSource = this.iBinding;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void InicializarDataGridView()
         {
             this.Rebind();
-            if (dgvPersonas.SelectedRows.Count == 0)
-            {
 
-            }
             this.dgvPersonas.ReadOnly = true;
             this.dgvPersonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            DataGridViewButtonColumn btnGestionar = new DataGridViewButtonColumn();
-            btnGestionar.Name = "Teléfonos";
-            btnGestionar.Text = "Gestionar" + DateTime.Now.Second.ToString();
-            btnGestionar.UseColumnTextForButtonValue = true;
-            btnGestionar.FlatStyle = FlatStyle.Standard;
 
             if (dgvPersonas.Columns["Teléfonos"] != null)
             {
                 dgvPersonas.Columns.Remove(dgvPersonas.Columns["Teléfonos"]);
             }
+
+
+            /*DataGridViewButtonColumn btnGestionar = new DataGridViewButtonColumn();
+            btnGestionar.Name = "Teléfonos";
+            btnGestionar.Text = "Gestionar" + DateTime.Now.Second.ToString();
+            btnGestionar.UseColumnTextForButtonValue = true;
+            btnGestionar.FlatStyle = FlatStyle.Standard;
 
             if (dgvPersonas.Columns["Telefonos"] != null)
             {
@@ -93,7 +71,7 @@ namespace EJ02.UI
                 dgvPersonas.Columns.Add(btnGestionar);
             }
 
-            dgvPersonas.CellClick += DgvPersonas_CellClick;
+            dgvPersonas.CellClick += DgvPersonas_CellClick; */
 
             EtiquetarDataGridView();
 
@@ -104,14 +82,6 @@ namespace EJ02.UI
             foreach (DataGridViewRow row in this.dgvPersonas.Rows)
             {
                 row.Tag = row.Cells[0].Value;
-            }
-        }
-
-        private void DgvPersonas_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dgvPersonas.Columns["Teléfonos"].Index)
-            {
-                MessageBox.Show("Toque el boton! :)");
             }
         }
 
@@ -126,8 +96,6 @@ namespace EJ02.UI
                 iFachada.Create(persona);
                 iBinding.Add(persona);
             }
-
-
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -184,19 +152,10 @@ namespace EJ02.UI
             }
         }
 
-        private void dgvPersonas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Asigna el contenido a la fuente de datos <see cref="iBinding"/>
-        /// </summary>
         private void RefreshBinding()
         {
             this.iBinding = this.iFachada.GetAll().ToBindingList<Persona>();       
         }
-
 
         private void dgvPersonas_Leave(object sender, EventArgs e)
         {
@@ -204,3 +163,4 @@ namespace EJ02.UI
         }
     }
 }
+ 

@@ -122,7 +122,6 @@
             this.dgvPersonas.RowHeadersVisible = false;
             this.dgvPersonas.Size = new System.Drawing.Size(421, 169);
             this.dgvPersonas.TabIndex = 0;
-            this.dgvPersonas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPersonas_CellContentClick);
             this.dgvPersonas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
             // pnlBotones
