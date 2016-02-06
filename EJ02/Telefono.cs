@@ -14,5 +14,31 @@ namespace EJ02
         public int TelefonoId { get; set; }
         public string Numero { get; set; }
         public string Tipo { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (Object.ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            Telefono lTelefono = obj as Telefono;
+            if (lTelefono == null)
+            {
+                return false;
+            }
+
+            return (this.TelefonoId == lTelefono.TelefonoId);
+        }
+
+        public override int GetHashCode()
+        {
+            return !Object.ReferenceEquals(null, this) ? this.TelefonoId.GetHashCode() : 0;
+        }
+
     }
 }

@@ -8,7 +8,7 @@ namespace EJ02
 {
     public class UnitOfWork : IDisposable
     {
-        private AgendaContext context = new AgendaContext();
+        internal AgendaContext context = new AgendaContext();
         private GenericRepository<Persona> iPersonaRepository;
         private GenericRepository<Telefono> iTelefonoRepository;
 

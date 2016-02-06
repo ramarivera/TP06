@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 
 namespace EJ02
 {
@@ -18,6 +19,7 @@ namespace EJ02
 
         public AgendaContext() : base()
         {
+            this.Configuration.ProxyCreationEnabled = false;
             Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
         }
 
@@ -34,10 +36,6 @@ namespace EJ02
 
             modelBuilder.Entity<Persona>()
                         .HasMany<Telefono>(p => p.Telefonos);
-                      /*  .WithRequired()
-                        .Map(a => a.MapKey("Persona"))
-                        .WillCascadeOnDelete(true);*/
-
 
             modelBuilder.Entity<Persona>().HasKey<int>(p => p.PersonaId);
 
@@ -53,6 +51,22 @@ namespace EJ02
                         .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        public override int SaveChanges()
+        {
+            StreamWriter text = new StreamWriter(".\\sarasa.txt", true);
+            text.WriteLine(String.Format("guardando cambios {0}", DateTime.Now));
+
+            foreach (var item in this.ChangeTracker.Entries())
+            {
+                text.WriteLine(String.Format("\t entidad: {0},\t estado:{1}", item.Entity, item.State));
+            }
+
+            text.Flush();
+            text.Close();
+
+            return base.SaveChanges();
         }
     }
 }
