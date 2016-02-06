@@ -19,7 +19,7 @@ namespace EJ02
 
         public AgendaContext() : base()
         {
-           // this.Configuration.ProxyCreationEnabled = false;
+            // this.Configuration.ProxyCreationEnabled = false;
             Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
         }
 

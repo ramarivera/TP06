@@ -108,17 +108,21 @@ namespace EJ02.UI
         /// <param name="e"></param>
         private void VentanaListaTelefonos_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult resultado = MessageBox.Show("¿Desea guardar los cambios antes de salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch (resultado)
+            if(this.dgvTelefonos.RowCount != 0)
             {
-                case DialogResult.Yes:
-                    this.DialogResult = DialogResult.OK;
-                    this.persona.Telefonos = this.iBinding;
-                    break;
-                case DialogResult.No:
-                    this.DialogResult = DialogResult.Cancel;
-                    break;
+                DialogResult resultado = MessageBox.Show("¿Desea guardar los cambios antes de salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                switch (resultado)
+                {
+                    case DialogResult.Yes:
+                        this.DialogResult = DialogResult.OK;
+                        this.persona.Telefonos = this.iBinding;
+                        break;
+                    case DialogResult.No:
+                        this.DialogResult = DialogResult.Cancel;
+                        break;
+                }
             }
+            
         }
     }
 }
