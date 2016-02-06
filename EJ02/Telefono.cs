@@ -40,5 +40,10 @@ namespace EJ02
             return !Object.ReferenceEquals(null, this) ? this.TelefonoId.GetHashCode() : 0;
         }
 
+        public override string ToString()
+        {
+            return String.Format("Telefono, id: {0}, numero: [1], tipo: {2}", TelefonoId, Numero, Tipo);
+        }
+
     }
 }

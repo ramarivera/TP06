@@ -35,7 +35,7 @@ namespace EJ02
         {
             get
             {
-                return dbSet;
+                return dbSet.AsNoTracking<TEntity>();
             }
         }
 

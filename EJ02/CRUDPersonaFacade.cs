@@ -36,10 +36,9 @@ namespace EJ02
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                Persona lPersona = (from pers in iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)
-                                   where
-                                        pers.PersonaId == pPersona.PersonaId
-                                   select pers).FirstOrDefault();
+                Persona lPersona = (from persona in iUnitOfWork.PersonaRepository.Queryable
+                                    where persona.PersonaId == pPersona.PersonaId
+                                    select persona).SingleOrDefault();
 
 
 
@@ -47,27 +46,27 @@ namespace EJ02
                 {
                     if (! pPersona.Telefonos.Any(t => t.TelefonoId == lTelefono.TelefonoId))
                     {
-                        lPersona.Telefonos.Remove(lTelefono);
-                        //iUnitOfWork.TelefonoRepository.Delete(lTelefono);
+                        //lPersona.Telefonos.Remove(lTelefono);
+                        iUnitOfWork.TelefonoRepository.Delete(lTelefono);
                     }
                 }
 
 
-                foreach (var telefono in pPersona.Telefonos)                    // Recorro los telefonos de pPersona para Actualizar / Agregar
+                foreach (var pTelefono in pPersona.Telefonos)                    // Recorro los telefonos de pPersona para Actualizar / Agregar
                 {
-                    if (telefono.TelefonoId == 0)
+                    if (pTelefono.TelefonoId == 0)
                     {
                         // Agregar
-                        lPersona.Telefonos.Add(telefono);
-                        //iUnitOfWork.TelefonoRepository.Insert(telefono);
+                        //lPersona.Telefonos.Add(telefono);
+                        iUnitOfWork.TelefonoRepository.Insert(pTelefono);
                     }
                     else
                     {
                         // Actualizar
                         //lPersona.Telefonos.  
                         // lPersona.Telefonos.Remove(telefono);   lPersona.Telefonos.Add(telefono);
-                        lPersona.Telefonos[lPersona.Telefonos.IndexOf(telefono)] = telefono;
-                        //iUnitOfWork.TelefonoRepository.Update(telefono);
+                        //lPersona.Telefonos[lPersona.Telefonos.IndexOf(telefono)] = telefono;
+                        iUnitOfWork.TelefonoRepository.Update(pTelefono);
                     }
                 }
 
@@ -79,8 +78,8 @@ namespace EJ02
                 }
                 */
 
-                iUnitOfWork.context.Entry(lPersona).CurrentValues.SetValues(pPersona);
-                iUnitOfWork.PersonaRepository.Update(lPersona);
+              //  iUnitOfWork.context.Entry(lPersona).CurrentValues.SetValues(pPersona);
+                iUnitOfWork.PersonaRepository.Update(pPersona);
                 iUnitOfWork.Save();
             }
 
@@ -110,7 +109,7 @@ namespace EJ02
             List<Persona> lResultado = new List<Persona>();
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos).AsNoTracking();
+                var query = this.iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos);
                 lResultado = query.ToList<Persona>();
             }
             return lResultado;
@@ -127,7 +126,7 @@ namespace EJ02
 
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                var query = (from persona in this.GetAll()
+                var query = (from persona in iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)
                              where persona.PersonaId == pPersonaId
                              select persona);
 
