@@ -42,7 +42,7 @@ namespace EJ02
 
         public override string ToString()
         {
-            return String.Format("Telefono, id: {0}, numero: [1], tipo: {2}", TelefonoId, Numero, Tipo);
+            return String.Format("Telefono, id: {0}, numero: {1}, tipo: {2}", TelefonoId, Numero, Tipo);
         }
 
     }

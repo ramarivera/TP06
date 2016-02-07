@@ -35,7 +35,10 @@ namespace EJ02
             modelBuilder.Entity<Telefono>().ToTable("Telefono");
 
             modelBuilder.Entity<Persona>()
-                        .HasMany<Telefono>(p => p.Telefonos);
+                        .HasMany<Telefono>(p => p.Telefonos)
+                        .WithRequired()
+                        .Map(m => m.MapKey("PersonaID"))
+                        .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Persona>().HasKey<int>(p => p.PersonaId);
 
@@ -57,16 +60,30 @@ namespace EJ02
         {
             StreamWriter text = new StreamWriter(".\\sarasa.txt", true);
             text.WriteLine(String.Format("guardando cambios {0}", DateTime.Now));
-
-            foreach (var item in this.ChangeTracker.Entries())
+            try
             {
-                text.WriteLine(String.Format("\t entidad: {0},\t estado:{1}", item.Entity, item.State));
+               
+
+                foreach (var item in this.ChangeTracker.Entries())
+                {
+                    text.WriteLine(String.Format("\t entidad: {0},\t estado:{1}", item.Entity, item.State));
+                }
+
+                text.Flush();
+                
+
+                return base.SaveChanges();
             }
-
-            text.Flush();
-            text.Close();
-
-            return base.SaveChanges();
+            catch (Exception e)
+            {
+                text.WriteLine(e.ToString());
+                throw;
+            }
+            finally
+            {
+                text.Close();
+            }
+            
         }
     }
 }

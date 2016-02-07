@@ -124,6 +124,7 @@ namespace EJ02.UI
             {
                 iFachada.Create(persona);
                 iBinding.Add(persona);
+                EtiquetarDataGridView();
             }
         }
 

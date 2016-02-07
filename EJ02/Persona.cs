@@ -24,7 +24,7 @@ namespace EJ02
 
         public override string ToString()
         {
-            return String.Format("Persona, id: {0}, nombre: [1], spellido: {2}", PersonaId, Nombre, Apellido);
+            return String.Format("Persona, id: {0}, nombre: {1} apellido: {2}", PersonaId, Nombre, Apellido);
         }
 
         public override bool Equals(object obj)
