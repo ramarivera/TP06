@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects.DataClasses;
+using System.Data.Entity.Core.Objects;
 
 namespace EJ02
 {
@@ -20,6 +23,8 @@ namespace EJ02
         public AgendaContext() : base()
         {
             // this.Configuration.ProxyCreationEnabled = false;
+            // this.Configuration.LazyLoadingEnabled = false;
+          //  this.Configuration.AutoDetectChangesEnabled = false;
             Database.SetInitializer<AgendaContext>(new DropCreateDatabaseIfModelChanges<AgendaContext>());
         }
 
@@ -36,7 +41,8 @@ namespace EJ02
 
             modelBuilder.Entity<Persona>()
                         .HasMany<Telefono>(p => p.Telefonos)
-                        .WithRequired()
+                    
+                       .WithRequired()
                         .Map(m => m.MapKey("PersonaID"))
                         .WillCascadeOnDelete(true);
 
@@ -62,28 +68,75 @@ namespace EJ02
             text.WriteLine(String.Format("guardando cambios {0}", DateTime.Now));
             try
             {
-               
+                // Telefono DELETED
+                // Persona MODIFIED
 
-                foreach (var item in this.ChangeTracker.Entries())
+                /*  var lPersonaEntries = this.ChangeTracker.Entries<Persona>();
+                  var lTelefonoEntries = this.ChangeTracker.Entries<Telefono>();
+
+                  foreach (var persEntry in lPersonaEntries)
+                  {
+                      if (persEntry.State == EntityState.Modified)
+                      {
+                          var sarasa = persEntry.Collection(p => p.Telefonos);
+                        //  persEntry.
+                          foreach (var item in sarasa.CurrentValue)
+                          {
+
+                              if (this.Entry(item).State == EntityState.Deleted)
+                              {
+                                  ((IObjectContextAdapter)this).ObjectContext.
+                                      ObjectStateManager.
+                                          ChangeRelationshipState(
+                                              persEntry.Entity,
+                                              item,
+                                              (p => p.Telefonos),
+                                              EntityState.Deleted);
+                              }
+                          }
+                      }
+
+                  }*/
+
+                var ent = ChangeTracker.Entries();
+
+                  foreach (var item in this.ChangeTracker.Entries())
+                  {
+                      text.WriteLine(String.Format("\t entidad: {0},\t estado:{1}", item.Entity, item.State));
+                  }
+
+                var algo = ((IObjectContextAdapter)this).ObjectContext.ObjectStateManager.GetObjectStateEntries(EntityState.Unchanged |EntityState.Modified | EntityState.Deleted);
+                foreach (ObjectStateEntry entry in  algo)
                 {
-                    text.WriteLine(String.Format("\t entidad: {0},\t estado:{1}", item.Entity, item.State));
+                    if (!entry.IsRelationship)
+                    {
+                        var otra = entry.RelationshipManager;
+
+
+                        text.WriteLine("Queseyo " +entry.ToString());
+
+                      //  otra.
+                    }
                 }
 
+
+
                 text.Flush();
-                
+
 
                 return base.SaveChanges();
             }
             catch (Exception e)
             {
                 text.WriteLine(e.ToString());
+                //   this.ChangeTracker
                 throw;
             }
             finally
             {
                 text.Close();
             }
-            
+
         }
     }
 }

@@ -78,7 +78,8 @@ namespace EJ02
             {
                 dbSet.Attach(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);
+        //    context.Entry<TEntity>(entityToDelete).State = EntityState.Deleted;
+           dbSet.Remove(entityToDelete);
         }
 
         /// <summary>

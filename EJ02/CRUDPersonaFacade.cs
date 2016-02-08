@@ -36,21 +36,11 @@ namespace EJ02
         {
             using (this.iUnitOfWork = new UnitOfWork())
             {
-                Persona lPersona = (from persona in iUnitOfWork.PersonaRepository.Queryable
-                                    where persona.PersonaId == pPersona.PersonaId
-                                    select persona).SingleOrDefault();
+                  Persona lPersona = (from persona in iUnitOfWork.PersonaRepository.Queryable.Include(p => p.Telefonos)
+                                      where persona.PersonaId == pPersona.PersonaId
+                                      select persona).SingleOrDefault();
 
-
-
-                foreach (Telefono lTelefono in lPersona.Telefonos.Reverse<Telefono>())
-                {
-                    if (! pPersona.Telefonos.Any(t => t.TelefonoId == lTelefono.TelefonoId))
-                    {
-                        //lPersona.Telefonos.Remove(lTelefono);
-                        iUnitOfWork.TelefonoRepository.Delete(lTelefono);
-                    }
-                }
-
+                /*  Persona lPersona = this.iUnitOfWork.PersonaRepository.GetByID(pPersona.PersonaId);*/
 
                 foreach (var pTelefono in pPersona.Telefonos)                    // Recorro los telefonos de pPersona para Actualizar / Agregar
                 {
@@ -70,6 +60,21 @@ namespace EJ02
                     }
                 }
 
+
+                iUnitOfWork.PersonaRepository.Update(pPersona);
+
+                foreach (Telefono lTelefono in lPersona.Telefonos.Reverse<Telefono>())
+                {
+                    if (! pPersona.Telefonos.Any(t => t.TelefonoId == lTelefono.TelefonoId))
+                    {
+                        //lPersona.Telefonos.Remove(lTelefono);
+                        iUnitOfWork.TelefonoRepository.Delete(lTelefono.TelefonoId);
+                    }
+                }
+
+
+                
+
        /*         var local = iUnitOfWork.context.Personas.Local
                                             .FirstOrDefault(f => f.PersonaId == pPersona.PersonaId);
                 if (local != null)
@@ -78,8 +83,8 @@ namespace EJ02
                 }
                 */
 
-              //  iUnitOfWork.context.Entry(lPersona).CurrentValues.SetValues(pPersona);
-                iUnitOfWork.PersonaRepository.Update(pPersona);
+               // iUnitOfWork.context.Entry(lPersona).CurrentValues.SetValues(pPersona);
+               
                 iUnitOfWork.Save();
             }
 
